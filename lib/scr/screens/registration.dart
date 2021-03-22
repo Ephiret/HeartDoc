@@ -19,7 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<UserProvider>(context);
+    final auth= Provider.of<UserProvider>(context);
     // final categoryProvider = Provider.of<CategoryProvider>(context);
     // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // final productProvider = Provider.of<ProductProvider>(context);
@@ -27,7 +27,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       key: _key,
       backgroundColor: white,
-      body: authProvider.status == Status.Authenticating
+      body: auth.status == Status.Authenticating
           ? Loading()
           : SingleChildScrollView(
               child: Column(
@@ -57,7 +57,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.name,
+                          controller: auth.name,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Username",
@@ -75,7 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.email,
+                          controller: auth.email,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Emails",
@@ -93,7 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.password,
+                          controller: auth.password,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Password",
@@ -111,7 +111,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.disease,
+                          controller: auth.disease,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Disease",
@@ -129,7 +129,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.dob,
+                          controller: auth.dob,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Date of Birth",
@@ -147,7 +147,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.dob,
+                          controller: auth.doctor,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Choose your doctor",
@@ -169,12 +169,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
 
-                        if (!await authProvider.signUp()) {
+                        if (!await auth.signUp()) {
                           _key.currentState.showSnackBar(
                               SnackBar(content: Text("Registration failed!")));
                           return;
                         }
-                        authProvider.clearController();
+                        auth.clearController();
                         changeScreenReplacement(context, Home());
                       },
                       child: Container(

@@ -1,3 +1,4 @@
+import 'package:HeartDoc/scr/helpers/user.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
@@ -18,21 +19,19 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 
+class Doctor extends StatefulWidget {
+  List<doctor> docs;
+  final int i;
+  Doctor(this.docs, this.i);
 
-class Home extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _DoctorState createState() => _DoctorState();
 }
 
-class _HomeState extends State<Home> {
+class _DoctorState extends State<Doctor> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
-    // // final categoryProvider = Provider.of<CategoryProvider>(context);
-    // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
-    // // final productProvider = Provider.of<ProductProvider>(context);
-    // restaurantProvider.loadSingleRestaurant()
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
@@ -67,41 +66,25 @@ class _HomeState extends State<Home> {
                 color: primary,
               ),
               accountName: CustomText(
-                text: user.userModel?.name ?? "username loading...",
+                text: widget.docs[widget.i].name ?? "username loading...",
                 color: white,
                 weight: FontWeight.bold,
                 size: 25,
               ),
               accountEmail: CustomText(
-                  text: user.userModel?.email ?? "email loading...",
+                  text: widget.docs[widget.i].email ?? "email loading...",
                   color: white,
                   size: 25),
             ),
             ListTile(
               onTap: () {
-                changeScreen(context, Home());
+                changeScreen(context, Doctor(widget.docs, widget.i));
               },
               leading: Icon(Icons.home),
               title: CustomText(text: "Home"),
             ),
             ListTile(
               onTap: () {
-                changeScreen(context, UpdateProfile());
-              },
-              leading: Icon(Icons.home),
-              title: CustomText(text: "Update Profile"),
-            ),
-            ListTile(
-              onTap: () async {
-                //await user.getOrders();
-                changeScreen(context, recordscreen());
-              },
-              leading: Icon(Icons.bookmark_border),
-              title: CustomText(text: "My records"),
-            ),
-            ListTile(
-              onTap: () {
-                user.signOut();
                 changeScreenReplacement(context, LoginScreen());
               },
               leading: Icon(Icons.exit_to_app),
@@ -121,41 +104,53 @@ class _HomeState extends State<Home> {
           : SafeArea(
               child: ListView(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                      // child: Icon(Icons.input),
-                      onTap: () async {
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        getUpload();
-                      },
+                  Container(
+                    decoration: BoxDecoration(
+                        color: primary,
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20))),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8, left: 8, right: 8, bottom: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.blue,
-                            border: Border.all(color: grey),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CustomText(
-                                text: "Input File",
-                                color: white,
-                                size: 22,
-                              )
-                            ],
+                          color: white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.search,
+                            color: red,
                           ),
+                          //FilePickerResult result = await FilePicker.platform.pickFiles();
+
+                          // User canceled the picker
+
+                          // title: TextField(
+                          //   textInputAction: TextInputAction.search,
+                          //   onSubmitted: (pattern) async {
+                          //     app.changeLoading();
+                          //     if (app.search == SearchBy.PRODUCTS) {
+                          //       await productProvider.search(
+                          //           productName: pattern);
+                          //       changeScreen(context, ProductSearchScreen());
+                          //     } else {
+                          //       await restaurantProvider.search(name: pattern);
+                          //       changeScreen(
+                          //           context, RestaurantsSearchScreen());
+                          //     }
+                          //     app.changeLoading();
+                          //   },
+                          //   decoration: InputDecoration(
+                          //     hintText: "Input the ECG DATA",
+                          //     border: InputBorder.none,
+                          //   ),
+                          // ),
                         ),
                       ),
                     ),
                   ),
-
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   //   children: <Widget>[
@@ -248,9 +243,7 @@ class _HomeState extends State<Home> {
                           primaryMeasureAxis: new charts.NumericAxisSpec(
                               tickProviderSpec:
                                   new charts.BasicNumericTickProviderSpec(
-                                      zeroBound: false,
-                                      )
-                          ),
+                                      zeroBound: false)),
                         ),
                       )
                     ]),

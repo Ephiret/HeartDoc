@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:HeartDoc/scr/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class UserServices{
+class UserServices {
   String collection = "users";
   Firestore _firestore = Firestore.instance;
 
@@ -10,10 +11,10 @@ class UserServices{
     _firestore.collection(collection).document(id).setData(values);
   }
 
-  void updateUserData(Map<String, dynamic> values){
+  void updateUserData(Map<String, dynamic> values) {
     _firestore.collection(collection).document(values['id']).updateData(values);
   }
-
+  
 
   // void addToCart({String userId, CartItemModel cartItem}){
   //   print("THE USER ID IS: $userId");
@@ -31,8 +32,27 @@ class UserServices{
   //   });
   // }
 
+  Future<UserModel> getUserById(String id) =>
+      _firestore.collection(collection).document(id).get().then((doc) {
+        return UserModel.fromSnapshot(doc);
+      });
+}
+class DocServices {
+  String collection = "doc";
+  Firestore _firestore = Firestore.instance;
 
-  Future<UserModel> getUserById(String id) => _firestore.collection(collection).document(id).get().then((doc){
-    return UserModel.fromSnapshot(doc);
-  });
+  void createUser(Map<String, dynamic> values) {
+    String id = values["id"];
+    _firestore.collection(collection).document(id).setData(values);
+  }
+
+  void updateUserData(Map<String, dynamic> values) {
+    _firestore.collection(collection).document(values['id']).updateData(values);
+  }
+  
+  Future<DocModel> getDocById(String id) =>
+      _firestore.collection(collection).document(id).get().then((doc) {
+        return DocModel.fromSnapshot(doc);
+      });
+      
 }

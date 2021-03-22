@@ -23,7 +23,6 @@ void main() {
           home: ScreensController())));
 }
 
-//this is comment//
 class ScreensController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

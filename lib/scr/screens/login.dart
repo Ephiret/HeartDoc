@@ -6,6 +6,7 @@ import 'package:HeartDoc/scr/screens/home.dart';
 import 'package:HeartDoc/scr/screens/registration.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
+import 'package:HeartDoc/scr/models/user.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -120,13 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        if (!await authProvider.signIn()) {
-                          _key.currentState.showSnackBar(
-                              SnackBar(content: Text("Login failed!")));
-                          return;
-                        }
-                        authProvider.clearController();
-                        changeScreenReplacement(context, Home());
+                        bool b = await verifyDoc(authProvider.email.text,
+                            authProvider.password.text,context);
+                        print(b);
+                        // if (!await verifyDoc(authProvider.email.text,
+                        //     authProvider.password.text)) {
+                        //   print("ttt");
+                        //   changeScreenReplacement(context, Home());
+                        // }
                       },
                       child: Container(
                         decoration: BoxDecoration(
