@@ -19,6 +19,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
+import 'package:HeartDoc/scr/screens/plot.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -122,8 +123,16 @@ class _HomeState extends State<Home> {
               ),
             )
           : SafeArea(
+              // Divider(),
+              //       SizedBox(
+              //         height: 10,
+              //        ),
               child: ListView(
                 children: <Widget>[
+                  Divider(),
+                  SizedBox(
+                    height: 150,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
@@ -135,6 +144,7 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
+                        getUpload();
                         runmodel();
                         check = true;
                         // SizedBox(
@@ -176,6 +186,10 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
+                  Divider(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
@@ -187,6 +201,8 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
+                        if (check == true)
+                          changeScreenReplacement(context, Plot());
                         //getprediction();
                         // SizedBox(
                         //   width: 80,
@@ -235,51 +251,52 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CustomText(
-                          text: "Graphical Presentations",
-                          size: 20,
-                          color: grey,
-                        ),
-                      ],
-                    ),
-                  ),
-                  // if(check==true)
-                  // getprediction();
-                  SizedBox(
-                    width: 80,
-                    height: 220,
-                    child: Column(children: <Widget>[
-                      Expanded(
-                        child: new charts.LineChart(
-                          getSeriesData(),
-                          animate: true,
-                          primaryMeasureAxis: new charts.NumericAxisSpec(
-                              tickProviderSpec:
-                                  new charts.BasicNumericTickProviderSpec(
-                            zeroBound: false,
-                          )),
-                        ),
-                      )
-                    ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CustomText(
-                          text: "Result",
-                          size: 20,
-                          color: grey,
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: <Widget>[
+                  //       CustomText(
+                  //         text: "Graphical Presentations",
+                  //         size: 20,
+                  //         color: grey,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // // if(check==true)
+                  // // getprediction();
+
+                  // SizedBox(
+                  //   width: 80,
+                  //   height: 220,
+                  //   child: Column(children: <Widget>[
+                  //     Expanded(
+                  //       child: new charts.LineChart(
+                  //         getSeriesData(),
+                  //         animate: true,
+                  //         primaryMeasureAxis: new charts.NumericAxisSpec(
+                  //             tickProviderSpec:
+                  //                 new charts.BasicNumericTickProviderSpec(
+                  //           zeroBound: false,
+                  //         )),
+                  //       ),
+                  //     )
+                  //   ]),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: <Widget>[
+                  //       CustomText(
+                  //         text: "Result",
+                  //         size: 20,
+                  //         color: grey,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),

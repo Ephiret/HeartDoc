@@ -124,8 +124,6 @@ class UserProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
-  
 }
 
 // class DocProvider with ChangeNotifier {

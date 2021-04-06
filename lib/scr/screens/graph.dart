@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -23,6 +25,7 @@ class Graphpoint {
 //   print(res);
 // }
 var output;
+var input;
 void runmodel() async {
   // LoadModel();
   print("output");
@@ -32,7 +35,7 @@ void runmodel() async {
   print("output1");
   print("output1");
   print("output1");
-  var input = [
+  input = [
     [
       1.23,
       6.54,
@@ -216,69 +219,34 @@ Future getUpload() async {
   });
 }
 
+String getResult() {
+  String result;
+  double error = 0;
+  for (int i = 0; i < 140; i++) {
+    error = (input[0][i] - output[0][i]) * (input[0][i] - output[0][i]);
+  }
+  error = error / 140;
+  double threshhold = 0.13;
+  print(error);
+  print(error);
+  print(error);
+
+  if (error > threshhold)
+    result = "Critical";
+  else
+    result = "Normal";
+  // print(result);
+  // print(result);
+  // print(result);
+  // print(result);
+  return result;
+}
+
 getSeriesData() {
-  String f;
-  int i = 0;
-  // for (i = 0; contents[i] != '\n'; i++) {
-  //   if (contents[i] != " ") f = f + contents[i];
-  // }
-  print(f);
-  // int a=output[0][1];
+  // if (output != null) {
   final data = [
     // new Graphpoint(i, i),
-    for (int i = 0; i < 140;i++) new Graphpoint(i, output[0][i]),
-    // new Graphpoint(1, output[0][1]),
-
-    // new Graphpoint(2, a),
-    // new Graphpoint(2, 1023),
-    // new Graphpoint(3, 1019),
-    // new Graphpoint(4, 1023),
-    // new Graphpoint(5, 1019),
-    // new Graphpoint(6, 1023),
-    // new Graphpoint(7, 1019),
-    // new Graphpoint(8, 1023),
-    // new Graphpoint(9, 1019),
-    // new Graphpoint(10, 1023),
-    // new Graphpoint(11, 1019),
-    // new Graphpoint(12, 1023),
-    // new Graphpoint(13, 1019),
-    // new Graphpoint(14, 1023),
-    // new Graphpoint(15, 1018),
-    // new Graphpoint(16, 1023),
-    // new Graphpoint(17, 1019),
-    // new Graphpoint(18, 1023),
-    // new Graphpoint(19, 1019),
-    // new Graphpoint(20, 1023),
-    // new Graphpoint(21, 1019),
-    // new Graphpoint(22, 1023),
-    // new Graphpoint(23, 1019),
-    // new Graphpoint(24, 1023),
-    // new Graphpoint(25, 1019),
-    // new Graphpoint(26, 1023),
-    // new Graphpoint(27, 1019),
-    // new Graphpoint(28, 1023),
-    // new Graphpoint(29, 1019),
-    // new Graphpoint(30, 1023),
-    // new Graphpoint(31, 1019),
-    // new Graphpoint(32, 1023),
-    // new Graphpoint(33, 1019),
-    // new Graphpoint(34, 1023),
-    // new Graphpoint(35, 1019),
-    // new Graphpoint(36, 1023),
-    // new Graphpoint(37, 1019),
-    // new Graphpoint(38, 1023),
-    // new Graphpoint(39, 1019),
-    // new Graphpoint(40, 1023),
-    // new Graphpoint(41, 1019),
-    // new Graphpoint(42, 1023),
-    // new Graphpoint(43, 1019),
-    // new Graphpoint(44, 1023),
-    // new Graphpoint(45, 1019),
-    // new Graphpoint(46, 1023),
-    // new Graphpoint(47, 1019),
-    // new Graphpoint(48, 1023),
-    // new Graphpoint(49, 1023),
-    // new Graphpoint(50, 1018),
+    for (int i = 0; i < 140; i++) new Graphpoint(i, output[0][i]),
   ];
 
   List<charts.Series<Graphpoint, int>> series = [
@@ -290,5 +258,8 @@ getSeriesData() {
         colorFn: (Graphpoint series, _) =>
             charts.MaterialPalette.blue.shadeDefault)
   ];
+  output = null;
+
   return series;
+  //}
 }
