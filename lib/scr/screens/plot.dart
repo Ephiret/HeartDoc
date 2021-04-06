@@ -108,7 +108,7 @@ class _PlotState extends State<Plot> {
                   child: Column(
                     children: <Widget>[
                       CustomText(
-                        text:result,
+                        text: result,
                         color: red,
                         size: 20,
                       )

@@ -26,6 +26,30 @@ class Graphpoint {
 // }
 var output;
 var input;
+
+List<String> val;
+String contents;
+File file;
+Future getUpload() async {
+  FilePickerResult result = await FilePicker.platform.pickFiles();
+  if (result != null) {
+    file = File(result.files.single.path);
+  } else {
+    // User canceled the picker
+  }
+  file.readAsString().then((contents) {
+    print(contents);
+    //print(contents.split("  "));
+    val = contents.split("  ");
+    print(val[0]);
+    print(val[1]);
+    print(val[2]);
+    //var onePointOne = double.parse(val[2]);
+    //print(onePointOne);
+  });
+}
+
+int i = 0;
 void runmodel() async {
   // LoadModel();
   print("output");
@@ -35,150 +59,13 @@ void runmodel() async {
   print("output1");
   print("output1");
   print("output1");
-  input = [
-    [
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22,
-      1.23,
-      6.54,
-      7.81,
-      3.22,
-      2.22
-    ]
-  ];
+  //var onePointOne = double.parse(val[2]);
+  for (int j = i; j - i < 100; i++, j++) {
+    var opoint = double.parse(val[j]);
+    input[0][j] = opoint;
+    print(input[0][j]);
+    print(opoint);
+  }
   print("output2");
   print("output2");
   print("output2");
@@ -202,21 +89,6 @@ void runmodel() async {
   print(output[0][139]);
   print(output[0][139]);
   print(output[0][139]);
-}
-
-List<String> val;
-String contents;
-File file;
-Future getUpload() async {
-  FilePickerResult result = await FilePicker.platform.pickFiles();
-  if (result != null) {
-    file = File(result.files.single.path);
-  } else {
-    // User canceled the picker
-  }
-  file.readAsString().then((contents) {
-    print(contents);
-  });
 }
 
 String getResult() {
