@@ -6,6 +6,7 @@ import 'package:HeartDoc/scr/screens/login.dart';
 import 'package:HeartDoc/scr/screens/splash.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:HeartDoc/scr/providers/patient.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

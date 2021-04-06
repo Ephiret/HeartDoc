@@ -1,4 +1,5 @@
-import 'package:HeartDoc/scr/helpers/user.dart';
+import 'package:HeartDoc/scr/helpers/patient.dart';
+import 'package:HeartDoc/scr/providers/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
@@ -8,16 +9,16 @@ import 'package:flutter/rendering.dart';
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/helpers/style.dart';
 import 'package:HeartDoc/scr/providers/app.dart';
-import 'package:HeartDoc/scr/providers/user.dart';
 import 'package:HeartDoc/scr/screens/login.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
+import 'package:HeartDoc/scr/screens/search.dart';
+import 'package:HeartDoc/scr/models/patient.dart';
 
 class Doctor extends StatefulWidget {
   List<doctor> docs;
@@ -28,10 +29,13 @@ class Doctor extends StatefulWidget {
   _DoctorState createState() => _DoctorState();
 }
 
+TextEditingController search = TextEditingController();
+
 class _DoctorState extends State<Doctor> {
   @override
   Widget build(BuildContext context) {
     final app = Provider.of<AppProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
@@ -94,14 +98,16 @@ class _DoctorState extends State<Doctor> {
         ),
       ),
       backgroundColor: white,
-      body: app.isLoading
+       body:
+       app.isLoading
           ? Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[Loading()],
               ),
             )
-          : SafeArea(
+          :
+       SafeArea(
               child: ListView(
                 children: <Widget>[
                   Container(
@@ -127,26 +133,25 @@ class _DoctorState extends State<Doctor> {
 
                           // User canceled the picker
 
-                          // title: TextField(
-                          //   textInputAction: TextInputAction.search,
-                          //   onSubmitted: (pattern) async {
-                          //     app.changeLoading();
-                          //     if (app.search == SearchBy.PRODUCTS) {
-                          //       await productProvider.search(
-                          //           productName: pattern);
-                          //       changeScreen(context, ProductSearchScreen());
-                          //     } else {
-                          //       await restaurantProvider.search(name: pattern);
-                          //       changeScreen(
-                          //           context, RestaurantsSearchScreen());
-                          //     }
-                          //     app.changeLoading();
-                          //   },
-                          //   decoration: InputDecoration(
-                          //     hintText: "Input the ECG DATA",
-                          //     border: InputBorder.none,
-                          //   ),
-                          // ),
+                          title: TextField(
+                            controller: search,
+                            textInputAction: TextInputAction.search,
+                            onSubmitted: (pattern) async {
+                              //app.changeLoading();
+                              print("search");
+                              print(search.text);
+                              print(search.text);
+                              print(search.text);
+                              // await patientProvider.search(
+                              //     patientName: pattern);
+                              changeScreen(context, Search(search.text));
+                            },
+                            
+                            decoration: InputDecoration(
+                              hintText: "Search",
+                              border: InputBorder.none,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -219,48 +224,48 @@ class _DoctorState extends State<Doctor> {
                   SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CustomText(
-                          text: "Graphical Presentations",
-                          size: 20,
-                          color: grey,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 80,
-                    height: 220,
-                    child: Column(children: <Widget>[
-                      Expanded(
-                        child: new charts.LineChart(
-                          getSeriesData(),
-                          animate: true,
-                          primaryMeasureAxis: new charts.NumericAxisSpec(
-                              tickProviderSpec:
-                                  new charts.BasicNumericTickProviderSpec(
-                                      zeroBound: false)),
-                        ),
-                      )
-                    ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CustomText(
-                          text: "Result",
-                          size: 20,
-                          color: grey,
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: <Widget>[
+                  //       CustomText(
+                  //         text: "Graphical Presentations",
+                  //         size: 20,
+                  //         color: grey,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 80,
+                  //   height: 220,
+                  //   child: Column(children: <Widget>[
+                  //     Expanded(
+                  //       child: new charts.LineChart(
+                  //         getSeriesData(),
+                  //         animate: true,
+                  //         primaryMeasureAxis: new charts.NumericAxisSpec(
+                  //             tickProviderSpec:
+                  //                 new charts.BasicNumericTickProviderSpec(
+                  //                     zeroBound: false)),
+                  //       ),
+                  //     )
+                  //   ]),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: <Widget>[
+                  //       CustomText(
+                  //         text: "Result",
+                  //         size: 20,
+                  //         color: grey,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   // Column(
                   //   children: restaurantProvider.restaurants
                   //       .map((item) => GestureDetector(

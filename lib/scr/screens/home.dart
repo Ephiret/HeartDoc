@@ -1,3 +1,4 @@
+import 'package:HeartDoc/scr/models/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
@@ -17,7 +18,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
-
+import 'package:HeartDoc/scr/screens/search.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
+    bool check = false;
     // // final categoryProvider = Provider.of<CategoryProvider>(context);
     // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // // final productProvider = Provider.of<ProductProvider>(context);
@@ -94,7 +96,8 @@ class _HomeState extends State<Home> {
             ListTile(
               onTap: () async {
                 //await user.getOrders();
-                changeScreen(context, recordscreen());
+                print(user.userModel?.name);
+                changeScreen(context, Search(user.userModel?.name));
               },
               leading: Icon(Icons.bookmark_border),
               title: CustomText(text: "My records"),
@@ -132,7 +135,25 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
-                        getUpload();
+                        runmodel();
+                        check = true;
+                        // SizedBox(
+                        //   width: 80,
+                        //   height: 220,
+                        //   child: Column(children: <Widget>[
+                        //     Expanded(
+                        //       child: new charts.LineChart(
+                        //         getSeriesData(),
+                        //         animate: true,
+                        //         primaryMeasureAxis: new charts.NumericAxisSpec(
+                        //             tickProviderSpec:
+                        //                 new charts.BasicNumericTickProviderSpec(
+                        //           zeroBound: false,
+                        //         )),
+                        //       ),
+                        //     )
+                        //   ]),
+                        // );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -155,72 +176,62 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //   children: <Widget>[
-                  //     CustomText(
-                  //       text: "Search by:",
-                  //       color: grey,
-                  //       weight: FontWeight.w300,
-                  //     ),
-                  //     DropdownButton<String>(
-                  //       value: app.filterBy,
-                  //       style: TextStyle(
-                  //           color: primary, fontWeight: FontWeight.w300),
-                  //       icon: Icon(
-                  //         Icons.filter_list,
-                  //         color: primary,
-                  //       ),
-                  //       elevation: 0,
-                  //       onChanged: (value) {
-                  //         if (value == "Products") {
-                  //           app.changeSearchBy(newSearchBy: SearchBy.PRODUCTS);
-                  //         } else {
-                  //           app.changeSearchBy(
-                  //               newSearchBy: SearchBy.RESTAURANTS);
-                  //         }
-                  //       },
-                  //       items: <String>["Products", "Restaurants"]
-                  //           .map<DropdownMenuItem<String>>((String value) {
-                  //         return DropdownMenuItem<String>(
-                  //             value: value, child: Text(value));
-                  //       }).toList(),
-                  //     ),
-                  //   ],
-                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: GestureDetector(
+                      // child: Icon(Icons.input),
+                      onTap: () async {
+                        print("BTN CLICKED!!!!");
+                        print("BTN CLICKED!!!!");
+                        print("BTN CLICKED!!!!");
+                        print("BTN CLICKED!!!!");
+                        print("BTN CLICKED!!!!");
+                        print("BTN CLICKED!!!!");
+                        //getprediction();
+                        // SizedBox(
+                        //   width: 80,
+                        //   height: 220,
+                        //   child: Column(children: <Widget>[
+                        //     Expanded(
+                        //       child: new charts.LineChart(
+                        //         getSeriesData(),
+                        //         animate: true,
+                        //         primaryMeasureAxis: new charts.NumericAxisSpec(
+                        //             tickProviderSpec:
+                        //                 new charts.BasicNumericTickProviderSpec(
+                        //           zeroBound: false,
+                        //         )),
+                        //       ),
+                        //     )
+                        //   ]),
+                        // );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            border: Border.all(color: grey),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              CustomText(
+                                text: "Submit",
+                                color: white,
+                                size: 22,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   Divider(),
                   SizedBox(
                     height: 10,
                   ),
-//                   Container(
-//                     height: 100,
-//                     child: ListView.builder(
-//                         scrollDirection: Axis.horizontal,
-//                         itemCount: categoryProvider.categories.length,
-//                         itemBuilder: (context, index) {
-//                           return GestureDetector(
-//                             onTap: () async {
-// //                              app.changeLoading();
-//                               await productProvider.loadProductsByCategory(
-//                                   categoryName:
-//                                       categoryProvider.categories[index].name);
-
-//                               changeScreen(
-//                                   context,
-//                                   CategoryScreen(
-//                                     categoryModel:
-//                                         categoryProvider.categories[index],
-//                                   ));
-
-// //                              app.changeLoading();
-//                             },
-//                             child: CategoryWidget(
-//                               category: categoryProvider.categories[index],
-//                             ),
-//                           );
-//                         }),
-//                   ),
+//
                   SizedBox(
                     height: 5,
                   ),
@@ -237,6 +248,8 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  // if(check==true)
+                  // getprediction();
                   SizedBox(
                     width: 80,
                     height: 220,
@@ -248,9 +261,8 @@ class _HomeState extends State<Home> {
                           primaryMeasureAxis: new charts.NumericAxisSpec(
                               tickProviderSpec:
                                   new charts.BasicNumericTickProviderSpec(
-                                      zeroBound: false,
-                                      )
-                          ),
+                            zeroBound: false,
+                          )),
                         ),
                       )
                     ]),
@@ -268,28 +280,6 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  // Column(
-                  //   children: restaurantProvider.restaurants
-                  //       .map((item) => GestureDetector(
-                  //             onTap: () async {
-                  //               app.changeLoading();
-
-                  //               await productProvider.loadProductsByRestaurant(
-                  //                   restaurantId: item.id);
-                  //               app.changeLoading();
-
-                  //               changeScreen(
-                  //                   context,
-                  //                   RestaurantScreen(
-                  //                     restaurantModel: item,
-                  //                   ));
-                  //             },
-                  //             child: RestaurantWidget(
-                  //               restaurant: item,
-                  //             ),
-                  //           ))
-                  //       .toList(),
-                  // )
                 ],
               ),
             ),

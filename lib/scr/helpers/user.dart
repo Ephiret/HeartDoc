@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:HeartDoc/scr/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class UserServices {
   String collection = "users";
@@ -54,5 +53,6 @@ class DocServices {
       _firestore.collection(collection).document(id).get().then((doc) {
         return DocModel.fromSnapshot(doc);
       });
+    
       
 }

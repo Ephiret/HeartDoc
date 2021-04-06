@@ -39,6 +39,9 @@ dependencies:
   fl_chart: ^0.11.0
   charts_flutter: ^0.8.1
   file_picker: ^2.1.7
+  tflite: ^1.0.6
+  matrix2d: ^0.0.7
+  tflite_flutter: ^0.5.0
 
 
 
@@ -51,6 +54,7 @@ flutter_icons:
   android: true
   image_path_ios: "images/logo.jpg"
   image_path_android: "images/logo.jpg"
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -68,6 +72,7 @@ flutter:
     - images/download.jpg
     - images/logo.png
     - images/logo.jpg
+    - assets/linear.tflite
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
