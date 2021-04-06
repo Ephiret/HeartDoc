@@ -46,6 +46,7 @@ Future getUpload() async {
     print(val[2]);
     //var onePointOne = double.parse(val[2]);
     //print(onePointOne);
+    runmodel();
   });
 }
 
@@ -60,10 +61,12 @@ void runmodel() async {
   print("output1");
   print("output1");
   //var onePointOne = double.parse(val[2]);
-  for (int j = i; j - i < 100; i++, j++) {
-    var opoint = double.parse(val[j]);
+  //int len = val.length;
+  input = List(1 * 140).reshape([1, 140]);
+  for (int j = 0; j < 140; j++) {
+    double opoint = double.parse(val[j + 420]);
     input[0][j] = opoint;
-    print(input[0][j]);
+    //print(input[0][j]);
     print(opoint);
   }
   print("output2");
