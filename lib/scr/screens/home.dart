@@ -1,6 +1,5 @@
 import 'package:HeartDoc/scr/models/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
-import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,18 +44,18 @@ class _HomeState extends State<Home> {
           text: "HeartDoc",
           color: white,
         ),
-        actions: <Widget>[
-          Stack(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.notification_important),
-                onPressed: () {
-                  changeScreen(context, notification_screen());
-                },
-              ),
-            ],
-          ),
-        ],
+        // actions: <Widget>[
+        //   Stack(
+        //     children: <Widget>[
+        //       IconButton(
+        //         icon: Icon(Icons.notification_important),
+        //         onPressed: () {
+        //           changeScreen(context, notification_screen());
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -144,9 +143,12 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
-                        getUpload();
-                        runmodel();
                         check = true;
+                        getUpload();
+                        print(check);
+                        print(check);
+                        print(check);
+                        print(check);
                         // SizedBox(
                         //   width: 80,
                         //   height: 220,

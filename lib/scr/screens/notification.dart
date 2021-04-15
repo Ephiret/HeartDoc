@@ -1,3 +1,4 @@
+import 'package:HeartDoc/scr/providers/app.dart';
 import 'package:flutter/material.dart';
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/helpers/style.dart';
@@ -16,6 +17,8 @@ class notification_screen extends StatefulWidget {
 class _notification_screenState extends State<notification_screen> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    final app = Provider.of<AppProvider>(context);
     return Container(
       
     );

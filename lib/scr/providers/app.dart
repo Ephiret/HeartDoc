@@ -1,6 +1,5 @@
 import 'package:HeartDoc/scr/models/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
-import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,36 +26,4 @@ class AppProvider with ChangeNotifier {
     isLoading = !isLoading;
     notifyListeners();
   }
-}
-
-getprediction() {
-  SizedBox(
-    width: 80,
-    height: 220,
-    child: Column(children: <Widget>[
-      Expanded(
-        child: new charts.LineChart(
-          getSeriesData(),
-          animate: true,
-          primaryMeasureAxis: new charts.NumericAxisSpec(
-              tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-            zeroBound: false,
-          )),
-        ),
-      )
-    ]),
-  );
-  Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        CustomText(
-          text: "Result",
-          size: 20,
-          color: grey,
-        ),
-      ],
-    ),
-  );
 }

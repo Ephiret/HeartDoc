@@ -4,7 +4,6 @@ import 'package:HeartDoc/scr/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-
 class UserModel {
   static const ID = "id";
   static const NAME = "name";
@@ -107,4 +106,13 @@ Future<bool> verifyDoc(
   return false;
 }
 
+Firestore _firestore = Firestore.instance;
+String date = DateTime.now().toString();
+updatepatient(String email, String disease, String result) async {
+  //print(userid);
+  
+  _firestore.collection('patient').document(email).updateData({"Date-Status": FieldValue.arrayUnion([date+"   :   "+result])});
+  _firestore.collection('patient').document(email).updateData({"Status": FieldValue.arrayUnion([result])});
 
+  //_firestore.collection('patient').document(name).updateData({"Status": FieldValue.arrayUnion(["Normal"])});
+}

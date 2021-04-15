@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:HeartDoc/scr/helpers/user.dart';
-import 'package:HeartDoc/scr/models/record.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
@@ -64,6 +63,11 @@ class UserProvider with ChangeNotifier {
       'email': email.text,
       'doctor': doctor.text,
     });
+    _firestore.collection('patient').document(email.text).updateData({
+      'name': name.text,
+      'doctor': doctor.text,
+      'disease': disease.text,
+    });
     return true;
   }
 
@@ -81,6 +85,13 @@ class UserProvider with ChangeNotifier {
           'dob': dob.text,
           'email': email.text,
           'uid': result.user.uid,
+          'doctor': doctor.text,
+        });
+        List list;
+        _firestore.collection('patient').document(email.text).setData({
+          'name': name.text,
+          'disease': disease.text,
+          'Date-Status': "null",
           'doctor': doctor.text,
         });
       });

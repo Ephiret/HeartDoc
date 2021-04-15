@@ -56,62 +56,142 @@ class _SearchState extends State<Search> {
           print(snapshot.data.documents.length);
           print(snapshot.data.documents.length);
           print(snapshot.data.documents.length);
+          int j = -1;
           for (i = 0; i < snapshot.data.documents.length; i++) {
             if (snapshot.data.documents[i]['name'] == widget.search) {
-              var j = snapshot.data.documents[i]['Date'].length;
+              if(snapshot.data.documents[i]['Date-Status']!="null")
+                j = snapshot.data.documents[i]['Date-Status'].length;
+      
               print(j);
               print(j);
               print(j);
               print(j);
+              break;
               //List<String> items=List.from(userDocument['items']);
               // var k = snapshot.data.documents[i]['Date'][0].length;
-              return Column(
-                children: <Widget>[
-                  Text("Name :" + snapshot.data.documents[i]['name']),
-                  Text("Disease :" + snapshot.data.documents[i]['Disease']),
-                  for (int l = 0; l < j; l++)
-                    Text(snapshot.data.documents[i]['Date'][l] +
-                        ":" +
-                        snapshot.data.documents[i]['Status'][l]),
-                  // for (int l = 0; l < j; l++)
-                  //Text(),
-                ],
-              );
+
             }
           }
-          // if (i == snapshot.data.documents.length) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                    size: 30,
+          if (j <= 0) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CustomText(
+                      text: "No Records Found",
+                      color: Colors.grey,
+                      weight: FontWeight.w300,
+                      size: 22,
+                    ),
+                  ],
+                )
+              ],
+            );
+          } else {
+            return Column(
+              children: <Widget>[
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CustomText(
+                      text: "Name     :   ",
+                      color: Colors.red,
+                      size: 20,
+                    ),
+                    CustomText(
+                      text: snapshot.data.documents[i]['name'],
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CustomText(
+                      text: "Disease  :   ",
+                      color: Colors.red,
+                      size: 20,
+                    ),
+                    CustomText(
+                      text: snapshot.data.documents[i]['disease'],
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CustomText(
+                      text: "Doctor    :   ",
+                      color: Colors.red,
+                      size: 20,
+                    ),
+                    CustomText(
+                      text: snapshot.data.documents[i]['doctor'],
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                // Text("Disease : " + snapshot.data.documents[i]['disease']),
+                // Text("Doctor : " + snapshot.data.documents[i]['doctor']),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CustomText(
+                      text: "Date\Time                                   ",
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                    CustomText(
+                      text: "Status",
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                for (int l = 0; l < j; l++)
+                  Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      CustomText(
+                        text: snapshot.data.documents[i]['Date-Status'][l],
+                        color: Colors.green,
+                        size: 18,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CustomText(
-                    text: "No Records Found",
-                    color: Colors.grey,
-                    weight: FontWeight.w300,
-                    size: 22,
-                  ),
-                ],
-              )
-            ],
-          );
-          // } else {
-
-          // }
+                // Text(snapshot.data.documents[i]['Date-Status'][l])
+                // "   :   " +
+                // snapshot.data.documents[i]['Status'][l]),
+                // for (int l = 0; l < j; l++)
+                //Text(),
+              ],
+            );
+          }
         },
       ),
     );

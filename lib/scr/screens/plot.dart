@@ -1,6 +1,5 @@
 import 'package:HeartDoc/scr/models/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
-import 'package:HeartDoc/scr/screens/record.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,7 @@ class _PlotState extends State<Plot> {
     final app = Provider.of<AppProvider>(context);
     bool check = false;
     String result = getResult();
+    updatepatient(user.userModel?.email, user.userModel?.disease, result);
     // // final categoryProvider = Provider.of<CategoryProvider>(context);
     // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // // final productProvider = Provider.of<ProductProvider>(context);
@@ -55,66 +55,100 @@ class _PlotState extends State<Plot> {
               ),
             )
           : SafeArea(
-              child: ListView(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    CustomText(
-                      text: "Graphical Presentations",
-                      size: 20,
-                      color: grey,
-                    ),
-                  ],
-                ),
-              ),
-              // if(check==true)
-              // getprediction();
+              child: ListView(
+              children: [
+                //for (int i = 0; i < 1;i++)
+                  //ListView(
+                    //children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            CustomText(
+                              text: "Graphical Presentations",
+                              size: 20,
+                              color: grey,
+                            ),
+                          ],
+                        ),
+                      ),
 
-              SizedBox(
-                width: 80,
-                height: 220,
-                child: Column(children: <Widget>[
-                  Expanded(
-                    child: new charts.LineChart(
-                      getSeriesData(),
-                      animate: true,
-                      primaryMeasureAxis: new charts.NumericAxisSpec(
-                          tickProviderSpec:
-                              new charts.BasicNumericTickProviderSpec(
-                        zeroBound: false,
-                      )),
-                    ),
-                  )
-                ]),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    CustomText(
-                      text: "Result",
-                      size: 20,
-                      color: grey,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                  width: 80,
-                  height: 220,
-                  child: Column(
-                    children: <Widget>[
-                      CustomText(
-                        text: result,
-                        color: red,
-                        size: 20,
-                      )
+                      // if(check==true)
+
+                      // getprediction();
+
+                      //
+
+                      //for (int i = 0; i < 1;i++)
+
+                      SizedBox(
+                        width: 80,
+                        height: 220,
+                        child: Column(children: <Widget>[
+                          Expanded(
+                            child: new charts.LineChart(
+                              getSeriesData1(0),
+                              animate: true,
+                              primaryMeasureAxis: new charts.NumericAxisSpec(
+                                  tickProviderSpec:
+                                      new charts.BasicNumericTickProviderSpec(
+                                zeroBound: false,
+                              )),
+                            ),
+                          )
+                        ]),
+                      ),
+
+                      SizedBox(
+                        width: 80,
+                        height: 220,
+                        child: Column(children: <Widget>[
+                          Expanded(
+                            child: new charts.LineChart(
+                              getSeriesData(),
+                              animate: true,
+                              primaryMeasureAxis: new charts.NumericAxisSpec(
+                                  tickProviderSpec:
+                                      new charts.BasicNumericTickProviderSpec(
+                                zeroBound: false,
+                              )),
+                            ),
+                          )
+                        ]),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            CustomText(
+                              text: "Result",
+                              size: 20,
+                              color: grey,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                          width: 80,
+                          height: 220,
+                          child: Column(
+                            children: <Widget>[
+                              CustomText(
+                                text: result,
+                                color: red,
+                                size: 20,
+                              )
+                            ],
+                          )),
                     ],
-                  )),
-            ])),
+                  ),
+              //],
+            )
+            //),
     );
   }
 }
