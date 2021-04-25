@@ -19,6 +19,7 @@ import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/screens/plot.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 
 class Home extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class _HomeState extends State<Home> {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
     bool check = false;
+    int l;
     // // final categoryProvider = Provider.of<CategoryProvider>(context);
     // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // // final productProvider = Provider.of<ProductProvider>(context);
@@ -144,11 +146,7 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         check = true;
-                        getUpload();
-                        print(check);
-                        print(check);
-                        print(check);
-                        print(check);
+                        await getUpload();
                         // SizedBox(
                         //   width: 80,
                         //   height: 220,
@@ -203,8 +201,7 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
-                        if (check == true)
-                          changeScreenReplacement(context, Plot());
+                        changeScreenReplacement(context, Plot());
                         //getprediction();
                         // SizedBox(
                         //   width: 80,

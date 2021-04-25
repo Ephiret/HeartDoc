@@ -108,7 +108,7 @@ Future<bool> verifyDoc(
 
 Firestore _firestore = Firestore.instance;
 String date = DateTime.now().toString();
-updatepatient(String email, String disease, String result) async {
+updatepatient(String email, String result) async {
   //print(userid);
   
   _firestore.collection('patient').document(email).updateData({"Date-Status": FieldValue.arrayUnion([date+"   :   "+result])});

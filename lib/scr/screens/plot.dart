@@ -16,10 +16,11 @@ import 'package:flutter/widgets.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
-import 'package:HeartDoc/scr/models/user.dart';
-import 'package:HeartDoc/scr/screens/search.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 
 class Plot extends StatefulWidget {
+  // final int len;
+  // Plot(this.len);
   @override
   _PlotState createState() => _PlotState();
 }
@@ -30,8 +31,23 @@ class _PlotState extends State<Plot> {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
     bool check = false;
-    String result = getResult();
-    updatepatient(user.userModel?.email, user.userModel?.disease, result);
+    print("length");
+    print("length");
+    print("length");
+    print(
+        "////////////////////////////////////////////////////////////////////////////////////////////////");
+        print(
+        "////////////////////////////////////////////////////////////////////////////////////////////////");
+        print(
+        "////////////////////////////////////////////////////////////////////////////////////////////////");
+        print(
+        "////////////////////////////////////////////////////////////////////////////////////////////////");
+    print(globals.length);
+    print(globals.length);
+    print(globals.length);
+    print(globals.length);
+    
+
     // // final categoryProvider = Provider.of<CategoryProvider>(context);
     // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // // final productProvider = Provider.of<ProductProvider>(context);
@@ -56,10 +72,12 @@ class _PlotState extends State<Plot> {
             )
           : SafeArea(
               child: ListView(
-              children: [
-                //for (int i = 0; i < 1;i++)
-                  //ListView(
-                    //children: <Widget>[
+              children: <Widget>[
+                for (int i = 0; i < globals.length; i++)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -73,22 +91,13 @@ class _PlotState extends State<Plot> {
                           ],
                         ),
                       ),
-
-                      // if(check==true)
-
-                      // getprediction();
-
-                      //
-
-                      //for (int i = 0; i < 1;i++)
-
                       SizedBox(
                         width: 80,
                         height: 220,
                         child: Column(children: <Widget>[
                           Expanded(
                             child: new charts.LineChart(
-                              getSeriesData1(0),
+                              getSeriesData1(i),
                               animate: true,
                               primaryMeasureAxis: new charts.NumericAxisSpec(
                                   tickProviderSpec:
@@ -99,14 +108,13 @@ class _PlotState extends State<Plot> {
                           )
                         ]),
                       ),
-
                       SizedBox(
                         width: 80,
                         height: 220,
                         child: Column(children: <Widget>[
                           Expanded(
                             child: new charts.LineChart(
-                              getSeriesData(),
+                              getSeriesData( i),
                               animate: true,
                               primaryMeasureAxis: new charts.NumericAxisSpec(
                                   tickProviderSpec:
@@ -117,7 +125,6 @@ class _PlotState extends State<Plot> {
                           )
                         ]),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -131,24 +138,50 @@ class _PlotState extends State<Plot> {
                           ],
                         ),
                       ),
-
                       SizedBox(
                           width: 80,
                           height: 220,
                           child: Column(
                             children: <Widget>[
                               CustomText(
-                                text: result,
+                                text:getResult(i),
                                 color: red,
                                 size: 20,
                               )
                             ],
                           )),
+
                     ],
                   ),
-              //],
-            )
-            //),
+                  Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            CustomText(
+                              text: "Result",
+                              size: 20,
+                              color: grey,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                          width: 80,
+                          height: 220,
+                          child: Column(
+                            children: <Widget>[
+                              CustomText(
+                                text:getResult1(user.userModel?.email),
+                                color: red,
+                                size: 20,
+                              )
+                            ],
+                          )
+                      )
+              ],
+            )),
+      //),
     );
   }
 }
