@@ -140,7 +140,7 @@ class _PlotState extends State<Plot> {
                       ),
                       SizedBox(
                           width: 80,
-                          height: 220,
+                          height: 200,
                           child: Column(
                             children: <Widget>[
                               CustomText(
@@ -156,12 +156,12 @@ class _PlotState extends State<Plot> {
                   Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CustomText(
-                              text: "Result",
-                              size: 20,
-                              color: grey,
+                              text: "Final Result",
+                              size: 24,
+                              color: Colors.blue,
                             ),
                           ],
                         ),
