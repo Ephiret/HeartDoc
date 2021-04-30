@@ -201,7 +201,26 @@ class _HomeState extends State<Home> {
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
                         print("BTN CLICKED!!!!");
-                        changeScreenReplacement(context, Plot());
+                        if (globals.check == true)
+                          changeScreenReplacement(context, Plot());
+                        else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Input a file first"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                         //getprediction();
                         // SizedBox(
                         //   width: 80,

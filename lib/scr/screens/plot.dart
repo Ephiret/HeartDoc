@@ -30,7 +30,7 @@ class _PlotState extends State<Plot> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
-    bool check = false;
+    globals.check = false;
     print("length");
     print("length");
     print("length");

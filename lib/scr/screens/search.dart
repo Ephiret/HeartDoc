@@ -4,7 +4,7 @@ import 'package:HeartDoc/scr/screens/doctor.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
-
+import 'package:hovering/hovering.dart';
 class Search extends StatefulWidget {
   final String search;
   // List<doctor> docs;
@@ -59,9 +59,9 @@ class _SearchState extends State<Search> {
           int j = -1;
           for (i = 0; i < snapshot.data.documents.length; i++) {
             if (snapshot.data.documents[i]['name'] == widget.search) {
-              if(snapshot.data.documents[i]['Date-Status']!="null")
+              if (snapshot.data.documents[i]['Date-Status'] != "null")
                 j = snapshot.data.documents[i]['Date-Status'].length;
-      
+
               print(j);
               print(j);
               print(j);
@@ -159,14 +159,14 @@ class _SearchState extends State<Search> {
                   //mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     CustomText(
-                      text: "Date\Time                                   ",
+                      text: "      Date-Time                              ",
                       color: Colors.black,
-                      size: 20,
+                      size: 17,
                     ),
                     CustomText(
                       text: "Status",
                       color: Colors.black,
-                      size: 20,
+                      size: 17,
                     ),
                   ],
                 ),
@@ -177,11 +177,20 @@ class _SearchState extends State<Search> {
                   Row(
                     //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      CustomText(
-                        text: snapshot.data.documents[i]['Date-Status'][l],
+                        HoverButton(
+                        onpressed: () {
+                          print("Done");
+                        },
                         color: Colors.green,
-                        size: 18,
-                      ),
+                        hoverColor: Colors.red,
+                        hoverTextColor: Colors.blue,
+                        child: Text(snapshot.data.documents[i]['Date-Status'][l]),
+                        // child: CustomText(
+                        //   text: snapshot.data.documents[i]['Date-Status'][l],
+                        //   color: Colors.green,
+                        //   size: 18,
+                        // ),
+                      )
                     ],
                   ),
                 // Text(snapshot.data.documents[i]['Date-Status'][l])

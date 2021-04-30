@@ -35,18 +35,6 @@ class Graphpoint {
 
   Graphpoint(this.time, this.value);
 }
-
-// void LoadModel() async {
-//   String res = await Tflite.loadModel(
-//       model: "assets/linear.tflite",
-//       numThreads: 1, // defaults to 1
-//       isAsset:
-//           true, // defaults to true, set to false to load resources outside assets
-//       useGpuDelegate:
-//           false // defaults to false, set to true to use GPU delegate
-//       );
-//   print(res);
-// }
 var output;
 var input = List(1 * 140).reshape([1, 140]);
 List<String> val;
@@ -59,19 +47,16 @@ Future<void> getUpload() async {
   FilePickerResult result = await FilePicker.platform.pickFiles();
   if (result != null) {
     file = File(result.files.single.path);
+    await uploadFile(file.readAsBytesSync());
   } else {
     // User canceled the picker
   }
   file.readAsString().then((contents) {
+    globals.check = true;
     // print(contents);
     //print(contents.split("  "));
     val = contents.split("  ");
-    print(val[0]);
-    print(val[1]);
-    print(val[2]);
     int len = val.length;
-    print(len);
-    print(len);
     double l1 = len / 140;
     int l = l1.toInt();
     globals.length = l;
@@ -127,36 +112,7 @@ void runmodel(int i) async {
     // print("output1");
     // print("output1");
     print(output1);
-    // double error1 = 0;
-    //   for (int i = 0; i < 140; i++) {
-    //     //double one = input1[i];
-    //     //double two = output1[i];
-    //     double and = (1.0 - 2.0);
-    //     double band;
-    //     band = and.abs();
-    //     error1 = error1 + band;
-    //   }
-    //   error1 = error1 / 140;
-    //   double threshhold = 0.067;
-    //   double max = 0.12;
-    //   double per = max - threshhold;
-    //   double p = (error1 - threshhold);
-    //   double q = (p / per) * 100;
-    //   int u = q.toInt();
-    //   print(error1);
-    //   print(error1);
-    //   print(error1);
-
-    //   if (error1 > threshhold) {
-    //     globals.result[j] = "Critical - " + u.toString() + " % ";
-    //   } else
-    //     globals.result[j] = "Normal";
-    // }
-    // print(result);
-    // print(result);
-    // print(result);
-    // print(result);
-    // print(output[j]);
+    
   }
   // getResult();
 }

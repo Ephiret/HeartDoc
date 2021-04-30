@@ -1,8 +1,13 @@
+import 'dart:math';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/screens/doctor.dart';
 import 'package:HeartDoc/scr/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 
 class UserModel {
   static const ID = "id";
@@ -110,9 +115,21 @@ Firestore _firestore = Firestore.instance;
 String date = DateTime.now().toString();
 updatepatient(String email, String result) async {
   //print(userid);
-  
-  _firestore.collection('patient').document(email).updateData({"Date-Status": FieldValue.arrayUnion([date+"   :   "+result])});
-  _firestore.collection('patient').document(email).updateData({"Status": FieldValue.arrayUnion([result])});
 
-  //_firestore.collection('patient').document(name).updateData({"Status": FieldValue.arrayUnion(["Normal"])});
+  _firestore.collection('patient').document(email).updateData({
+    "Date-Status": FieldValue.arrayUnion([date + "   :   " + result]),
+    "Status": FieldValue.arrayUnion([result]),
+    "Url": FieldValue.arrayUnion([globals.url]),
+  });
+  globals.url = "";
+}
+
+uploadFile(List<int> asset) async {
+  var rng = new Random();
+  String name = "";
+  for (int i = 0; i < 20; i++) name += rng.nextInt(100).toString();
+
+  StorageReference ref = FirebaseStorage.instance.ref().child(name);
+  StorageUploadTask uploadTask = ref.putData(asset);
+  globals.url = await (await uploadTask.onComplete).ref.getDownloadURL();
 }
