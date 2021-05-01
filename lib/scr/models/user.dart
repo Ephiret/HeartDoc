@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 
 class UserModel {
   static const ID = "id";
@@ -81,20 +82,9 @@ class DocModel {
   }
 }
 
-List<doctor> docs = [
-  doctor(name: "Dr Ayush", email: "ayush1234@gmail.com", pass: "123456"),
-  doctor(name: "Dr Rakesh", email: "rakesh1234@gmail.com", pass: "123456"),
-  doctor(name: "Dr Rahul", email: "rahul1234@gmail.com", pass: "123456"),
-  doctor(name: "Dr Fahiem", email: "fahiem1234@gmail.com", pass: "123456"),
-  doctor(name: "Dr Harshit", email: "harshit1234@gmail.com", pass: "123456"),
-];
 
-class doctor {
-  final String name;
-  final String email;
-  final String pass;
-  doctor({this.email, this.pass, this.name});
-}
+
+
 
 Future<bool> verifyDoc(
     String email, String password, BuildContext context) async {
@@ -102,10 +92,10 @@ Future<bool> verifyDoc(
   print(email);
   print(email);
   print(email);
-  for (int i = 0; i < docs.length; i++) {
-    if (docs[i].email == email && docs[i].pass == password) {
+  for (int i = 0; i < globals.docs.length; i++) {
+    if (globals.docs[i].email == email && globals.docs[i].pass == password) {
       print("true");
-      changeScreenReplacement(context, Doctor(docs, i));
+      changeScreenReplacement(context, Doctor(globals.docs, i));
     }
   }
   return false;
@@ -115,21 +105,21 @@ Firestore _firestore = Firestore.instance;
 String date = DateTime.now().toString();
 updatepatient(String email, String result) async {
   //print(userid);
-
+  globals.contents = globals.contents + "  " + date;
   _firestore.collection('patient').document(email).updateData({
     "Date-Status": FieldValue.arrayUnion([date + "   :   " + result]),
-    "Status": FieldValue.arrayUnion([result]),
-    "Url": FieldValue.arrayUnion([globals.url]),
+    //"Status": FieldValue.arrayUnion([result]),
+    "Contents": FieldValue.arrayUnion([globals.contents]),
   });
-  globals.url = "";
+  globals.contents = "";
 }
 
-uploadFile(List<int> asset) async {
-  var rng = new Random();
-  String name = "";
-  for (int i = 0; i < 20; i++) name += rng.nextInt(100).toString();
+// uploadFile(List<int> asset) async {
+//   var rng = new Random();
+//   String name = "";
+//   for (int i = 0; i < 20; i++) name += rng.nextInt(100).toString();
 
-  StorageReference ref = FirebaseStorage.instance.ref().child(name);
-  StorageUploadTask uploadTask = ref.putData(asset);
-  globals.url = await (await uploadTask.onComplete).ref.getDownloadURL();
-}
+//   StorageReference ref = FirebaseStorage.instance.ref().child(name);
+//   StorageUploadTask uploadTask = ref.putData(asset);
+//   globals.url = await (await uploadTask.onComplete).ref.getDownloadURL();
+// }

@@ -35,91 +35,66 @@ class Graphpoint {
 
   Graphpoint(this.time, this.value);
 }
+
+String contents;
 var output;
 var input = List(1 * 140).reshape([1, 140]);
 List<String> val;
-String contents;
 File file;
-Future<void> getUpload() async {
-  globals.error = 0;
-  input = null;
-  output = null;
+Future<bool> getUpload() async {
+  globals.input = true;
   FilePickerResult result = await FilePicker.platform.pickFiles();
   if (result != null) {
     file = File(result.files.single.path);
-    await uploadFile(file.readAsBytesSync());
+    globals.check = true;
+    // await uploadFile(file.readAsBytesSync());
   } else {
     // User canceled the picker
   }
   file.readAsString().then((contents) {
-    globals.check = true;
     // print(contents);
     //print(contents.split("  "));
-    val = contents.split("  ");
-    int len = val.length;
-    double l1 = len / 140;
-    int l = l1.toInt();
-    globals.length = l;
+    globals.contents = contents;
+
     //var onePointOne = double.parse(val[2]);
     //print(onePointOne);
-    runmodel(l);
   });
+  await Future.delayed(Duration(seconds: 1));
+  return true;
 }
 
-void runmodel(int i) async {
-  // LoadModel();
+void doit() async {
+  await runmodel();
+}
 
-  // print("output");
-  // print("output");
-  // print("output");
+Future<void> runmodel() async {
+  val = globals.contents.split("  ");
+  int len = val.length;
+  double l1 = len / 140;
+  int l = l1.toInt();
+  globals.length = l;
+  globals.error = 0;
+  input = null;
+  output = null;
+  int i = globals.length;
   final interpreter = await Interpreter.fromAsset('linear.tflite');
-  // print("output1");
-  // print("output1");
-  // print("output1");
   output = List(i * 140).reshape([i, 140]);
   input = List(i * 140).reshape([i, 140]);
-  //var onePointOne = double.parse(val[2]);
   for (int j = 0; j < i; j++) {
     for (int k = 0; k < 140; k++) {
       double opoint = double.parse(val[k + j * 140]);
       input[j][k] = opoint;
-      //print(input[j][k]);
-      //print(opoint);
     }
-    // print("output2");
-    // print("output2");
-    // print("output2");
-    // print("output3");
-    // print("output3");
-    // print("output3");
-    // inference
-    // print(input);
-    // print(input);
-    // print(input);
     var input1 = List(1 * 140).reshape([1, 140]);
     input1 = input[j];
+    print(input1);
     var output1 = List(1 * 140).reshape([1, 140]);
     interpreter.run(input1, output1);
-    // print("output4");
-    // print("output4");
-    // print("output4");
-    print(input[j]);
-    // print(input[0][j]);
-    // print(input[0][j]);
-    // print the output
     output[j] = output1;
-    // print("output1");
-    // print("output1");
-    // print("output1");
-    print(output1);
-    
   }
   // getResult();
 }
 
-// print(output[0][139]);
-// print(output[0][139]);
-// print(output[0][139]);
 String getResult(int l) {
   //for (int l = 0; l < globals.length; l++) {
   String result;
@@ -171,28 +146,10 @@ String getResult1(String email) {
     result = "Critical - " + u.toString() + " % ";
   } else
     result = "Normal";
-  updatepatient(email, result);
+  if (globals.input) updatepatient(email, result);
+  globals.input = false;
   return result;
 }
-//   print(
-//     "-----------------------------------------------------------------------------------------");
-// print(globals.result[l]);
-// print(
-//     "-----------------------------------------------------------------------------------------");
-// print(globals.result[l]);
-// print(
-//     "-----------------------------------------------------------------------------------------");
-// print(globals.result[l]);
-// print(
-//     "-----------------------------------------------------------------------------------------");
-// print(globals.result[l]);
-// }
-
-// print(result);
-// print(result);
-// print(result);
-// print(result);
-//}
 
 getSeriesData1(int j) {
   final data = [

@@ -6,6 +6,7 @@ import 'package:HeartDoc/scr/screens/login.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 
 import 'home.dart';
 
@@ -19,11 +20,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth= Provider.of<UserProvider>(context);
+    final auth = Provider.of<UserProvider>(context);
     // final categoryProvider = Provider.of<CategoryProvider>(context);
     // final restaurantProvider = Provider.of<RestaurantProvider>(context);
     // final productProvider = Provider.of<ProductProvider>(context);
-
+    String setValue = "Choose your doctor";
     return Scaffold(
       key: _key,
       backgroundColor: white,
@@ -127,15 +128,40 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           border: Border.all(color: grey),
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: TextFormField(
-                          controller: auth.dob,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Date of Birth",
-                              icon: Icon(Icons.event)),
-                        ),
-                      ),
+                          padding: EdgeInsets.only(left: 10),
+                          child: TextFormField(
+                            controller: auth.dob,
+                            decoration: InputDecoration(
+                              // labelText: "Date of birth",
+                              icon: Icon(Icons.event),
+                              hintText: "Date of birth",
+                            ),
+                            onTap: () async {
+                              DateTime date = DateTime(1900);
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+
+                              date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime(2100));
+                              var date1 =
+                                  DateTime.parse("2019-04-16 12:18:06.018950");
+                              var formattedDate =
+                                  "${date.day}-${date.month}-${date.year}";
+                              String newDate = formattedDate.toString();
+                              auth.dob.text = newDate;
+                            },
+                          )
+                          //  TextFormField(
+                          //   controller: auth.dob,
+                          //   decoration: InputDecoration(
+                          //       border: InputBorder.none,
+                          //       hintText: "Date of Birth",
+                          //       icon: Icon(Icons.event)),
+                          // ),
+                          ),
                     ),
                   ),
                   Padding(
@@ -145,17 +171,88 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           border: Border.all(color: grey),
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: TextFormField(
-                          controller: auth.doctor,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Choose your doctor",
-                              icon: Icon(Icons.local_hospital_rounded)),
-                        ),
-                      ),
+                          padding: EdgeInsets.only(left: 10),
+                          child: DropdownButton(
+                            isExpanded: true,
+                            hint: new Text(setValue),
+                            items: globals.docs.map((globals.doctor value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Text(value.name),
+                              );
+                            }).toList(),
+                            onChanged: (newvalue) {
+                              auth.doctor.text = newvalue.name;
+                              print(newvalue.name);
+                            },
+                          )),
+
+                      // TextFormField(
+                      //   controller: auth.doctor,
+                      //   decoration: InputDecoration(
+                      //       border: InputBorder.none,
+                      //       hintText: "Choose your doctor",
+                      //       icon: Icon(Icons.local_hospital_rounded)),
+                      // ),
                     ),
                   ),
+
+                  // DropdownButton(
+                  //         // icon: const Icon(Icons.arrow_downward),
+                  //         // iconSize: 24,
+                  //         // elevation: 16,
+                  //         isExpanded: true,
+                  //         items: <DropdownMenuItem>[
+                  //           DropdownMenuItem(
+                  //             child: Text(
+                  //               "         Choose Your Doctor",
+                  //               style: TextStyle(
+                  //                 color: Colors.grey[700],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           DropdownMenuItem(
+                  //             child: Text(
+                  //               "Null",
+                  //               style: TextStyle(
+                  //                 color: Colors.black,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           for (int i = 0; i < globals.docs.length; i++)
+                  //             DropdownMenuItem(
+                  //               child: Text(
+                  //                 globals.docs[i].name,
+                  //                 style: TextStyle(
+                  //                   color: Colors.black,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //         ],
+                  //         onChanged: (String newvalue) {
+                  //           // setState(() {
+                  //           //   drop = newvalue;
+                  //           // });
+                  //           print(newvalue);
+                  //           if (newvalue == "Choose Your Doctor" ||
+                  //               newvalue == "Null") {
+                  //             TextEditingController doctor;
+                  //             doctor.text = "Null";
+                  //             auth.doctor = doctor;
+                  //           } else
+                  //             auth.doctor.text = newvalue;
+                  //         },
+                  //       ),
+                  //     ),
+                  //     // TextFormField(
+                  //     //   controller: auth.doctor,
+                  //     //   decoration: InputDecoration(
+                  //     //       border: InputBorder.none,
+                  //     //       hintText: "Choose your doctor",
+                  //     //       icon: Icon(Icons.local_hospital_rounded)),
+                  //     // ),
+                  //   ),
+                  // ),
                   //padding: EdgeInsets.all(10),
 
                   Padding(

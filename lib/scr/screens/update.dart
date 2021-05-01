@@ -127,11 +127,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: TextFormField(
-                  controller: authProvider1.dob,
+                  
+                  controller: authProvider1.doctor,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: user.userModel?.dob,
-                      icon: Icon(Icons.event)),
+                      hintText: user.userModel?.doctor,
+                      icon: Icon(Icons.local_hospital_rounded)),
                 ),
               ),
             ),
@@ -145,12 +146,31 @@ class _UpdateProfileState extends State<UpdateProfile> {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: TextFormField(
-                  controller: authProvider1.doctor,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: user.userModel?.doctor,
-                      icon: Icon(Icons.event)),
-                ),
+                            controller: authProvider1.dob,
+                            decoration: InputDecoration(
+                              // labelText: "Date of birth",
+                              icon: Icon(Icons.event),
+                              hintText: "Date of birth",
+                            ),
+                            onTap: () async {
+                              DateTime date = DateTime(1900);
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+
+                              date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime(2100));
+                              var date1 =
+                                  DateTime.parse("2019-04-16 12:18:06.018950");
+                              var formattedDate =
+                                  "${date.day}-${date.month}-${date.year}";
+                              String newDate = formattedDate.toString();
+                              authProvider1.dob.text = newDate;
+                            },
+                          )
+                
               ),
             ),
           ),

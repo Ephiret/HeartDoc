@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:HeartDoc/scr/screens/doctor.dart';
@@ -5,6 +8,9 @@ import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:hovering/hovering.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/screens/plot.dart';
+
 class Search extends StatefulWidget {
   final String search;
   // List<doctor> docs;
@@ -44,6 +50,7 @@ class _SearchState extends State<Search> {
     print("Reached");
     print("Reached");
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: const Text('Patient Details'),
       ),
@@ -61,7 +68,7 @@ class _SearchState extends State<Search> {
             if (snapshot.data.documents[i]['name'] == widget.search) {
               if (snapshot.data.documents[i]['Date-Status'] != "null")
                 j = snapshot.data.documents[i]['Date-Status'].length;
-
+              print("----------------");
               print(j);
               print(j);
               print(j);
@@ -103,101 +110,115 @@ class _SearchState extends State<Search> {
               ],
             );
           } else {
-            return Column(
+            return ListView(
               children: <Widget>[
-                Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Column(
                   children: <Widget>[
-                    CustomText(
-                      text: "Name     :   ",
-                      color: Colors.red,
-                      size: 20,
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        CustomText(
+                          text: "Name     :   ",
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                        CustomText(
+                          text: snapshot.data.documents[i]['name'],
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ],
                     ),
-                    CustomText(
-                      text: snapshot.data.documents[i]['name'],
-                      color: Colors.blue,
-                      size: 20,
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        CustomText(
+                          text: "Disease  :   ",
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                        CustomText(
+                          text: snapshot.data.documents[i]['disease'],
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ],
                     ),
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        CustomText(
+                          text: "Doctor    :   ",
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                        CustomText(
+                          text: snapshot.data.documents[i]['doctor'],
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    // Text("Disease : " + snapshot.data.documents[i]['disease']),
+                    // Text("Doctor : " + snapshot.data.documents[i]['doctor']),
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        CustomText(
+                          text: "      Date-Time                              ",
+                          color: Colors.black,
+                          size: 17,
+                        ),
+                        CustomText(
+                          text: "Status",
+                          color: Colors.black,
+                          size: 17,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    for (int l = 0; l < j; l++)
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          HoverButton(
+                            onpressed: () {
+                              globals.contents =
+                                  snapshot.data.documents[i]['Contents'][l];
+                              doit();
+                              Timer(Duration(seconds: 1), () {
+                                print("Yeah, this line is printed after 3 seconds");
+                                changeScreenReplacement(context, Plot());
+                              });
+                              
+                                  
+                              
+                            },
+                            color: Colors.green,
+                            hoverColor: Colors.red,
+                            hoverTextColor: Colors.blue,
+                            child: Text(
+                                snapshot.data.documents[i]['Date-Status'][l]),
+                            // child: CustomText(
+                            //   text: snapshot.data.documents[i]['Date-Status'][l],
+                            //   color: Colors.green,
+                            //   size: 18,
+                            // ),
+                          )
+                        ],
+                      ),
+                    // Text(snapshot.data.documents[i]['Date-Status'][l])
+                    // "   :   " +
+                    // snapshot.data.documents[i]['Status'][l]),
+                    // for (int l = 0; l < j; l++)
+                    //Text(),
                   ],
                 ),
-                Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    CustomText(
-                      text: "Disease  :   ",
-                      color: Colors.red,
-                      size: 20,
-                    ),
-                    CustomText(
-                      text: snapshot.data.documents[i]['disease'],
-                      color: Colors.blue,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    CustomText(
-                      text: "Doctor    :   ",
-                      color: Colors.red,
-                      size: 20,
-                    ),
-                    CustomText(
-                      text: snapshot.data.documents[i]['doctor'],
-                      color: Colors.blue,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                // Text("Disease : " + snapshot.data.documents[i]['disease']),
-                // Text("Doctor : " + snapshot.data.documents[i]['doctor']),
-                Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    CustomText(
-                      text: "      Date-Time                              ",
-                      color: Colors.black,
-                      size: 17,
-                    ),
-                    CustomText(
-                      text: "Status",
-                      color: Colors.black,
-                      size: 17,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                for (int l = 0; l < j; l++)
-                  Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                        HoverButton(
-                        onpressed: () {
-                          print("Done");
-                        },
-                        color: Colors.green,
-                        hoverColor: Colors.red,
-                        hoverTextColor: Colors.blue,
-                        child: Text(snapshot.data.documents[i]['Date-Status'][l]),
-                        // child: CustomText(
-                        //   text: snapshot.data.documents[i]['Date-Status'][l],
-                        //   color: Colors.green,
-                        //   size: 18,
-                        // ),
-                      )
-                    ],
-                  ),
-                // Text(snapshot.data.documents[i]['Date-Status'][l])
-                // "   :   " +
-                // snapshot.data.documents[i]['Status'][l]),
-                // for (int l = 0; l < j; l++)
-                //Text(),
               ],
             );
           }

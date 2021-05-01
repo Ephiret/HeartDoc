@@ -17,9 +17,10 @@ import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/models/patient.dart';
+import 'package:HeartDoc/scr/screens/globals.dart' as globals;
 
 class Doctor extends StatefulWidget {
-  List<doctor> docs;
+  List<globals.doctor> docs;
   final int i;
   Doctor(this.docs, this.i);
 

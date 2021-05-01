@@ -139,31 +139,7 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                       // child: Icon(Icons.input),
                       onTap: () async {
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        check = true;
                         await getUpload();
-                        // SizedBox(
-                        //   width: 80,
-                        //   height: 220,
-                        //   child: Column(children: <Widget>[
-                        //     Expanded(
-                        //       child: new charts.LineChart(
-                        //         getSeriesData(),
-                        //         animate: true,
-                        //         primaryMeasureAxis: new charts.NumericAxisSpec(
-                        //             tickProviderSpec:
-                        //                 new charts.BasicNumericTickProviderSpec(
-                        //           zeroBound: false,
-                        //         )),
-                        //       ),
-                        //     )
-                        //   ]),
-                        // );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -195,15 +171,10 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                       // child: Icon(Icons.input),
                       onTap: () async {
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        if (globals.check == true)
+                        if (globals.check == true) {
+                          await runmodel();
                           changeScreenReplacement(context, Plot());
-                        else {
+                        } else {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
