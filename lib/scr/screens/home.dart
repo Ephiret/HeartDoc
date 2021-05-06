@@ -1,7 +1,3 @@
-import 'dart:async';
-
-import 'package:HeartDoc/scr/models/patient.dart';
-import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +11,8 @@ import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
-import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/screens/plot.dart';
 import 'package:HeartDoc/scr/providers/globals.dart' as globals;
@@ -33,8 +27,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
-    bool check = false;
-    int l;
+    globals.check = false;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
@@ -127,9 +120,7 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(10),
                       child: GestureDetector(
                         onTap: () async {
-                          
                           globals.check = await getUpload();
-
                           if (globals.check) {
                             showDialog(
                               context: context,
@@ -177,33 +168,34 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: GestureDetector(
-                        // child: Icon(Icons.input),
                         onTap: () async {
-                          await runmodel();
-                          Timer(Duration(milliseconds: 300), () async {
-                            if (globals.check == true) {
-                              changeScreenReplacement(context, Plot());
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Input a file first"),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: Text('Ok'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          });
+                          print(globals.check);
+                          // Timer(Duration(milliseconds: 300), () async {
+                          if (globals.check == true) {
+                            await runmodel();
+                            changeScreenReplacement(context, Plot());
+                            globals.check = false;
+                          } else {
+                            print("Dddddd");
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Input a file first"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('Ok'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                          // });
                         },
-
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.blue,
