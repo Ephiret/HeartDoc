@@ -16,7 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:HeartDoc/scr/screens/graph.dart';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 
 class Plot extends StatefulWidget {
   // final int len;

@@ -8,6 +8,7 @@ import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:HeartDoc/scr/screens/admin1.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -88,13 +89,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        if (!await authProvider.signIn()) {
-                          _key.currentState.showSnackBar(
-                              SnackBar(content: Text("Login failed!")));
-                          return;
+                        if (authProvider.email.text == "admin" &&
+                            authProvider.password.text == "admin") {
+                          print("admin");
+                          changeScreenReplacement(context, Admin());
+                        } else {
+                          if (!await authProvider.signIn()) {
+                            _key.currentState.showSnackBar(
+                                SnackBar(content: Text("Login failed!")));
+                            return;
+                          }
+                          authProvider.clearController();
+                          changeScreenReplacement(context, Home());
                         }
-                        authProvider.clearController();
-                        changeScreenReplacement(context, Home());
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -121,9 +128,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        bool b = await verifyDoc(authProvider.email.text,
-                            authProvider.password.text,context);
-                        print(b);
+                        if (authProvider.email.text == "admin" &&
+                            authProvider.password.text == "admin") {
+                          print("admin");
+                          changeScreenReplacement(context, Admin());
+                        } else {
+                          bool b = await verifyDoc(authProvider.email.text,
+                              authProvider.password.text, context);
+                          if(b==false)
+                           _key.currentState.showSnackBar(
+                                SnackBar(content: Text("Login failed!")));
+                            
+                        }
                         // if (!await verifyDoc(authProvider.email.text,
                         //     authProvider.password.text)) {
                         //   print("ttt");

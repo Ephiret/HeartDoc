@@ -11,44 +11,16 @@ import 'package:hovering/hovering.dart';
 import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 import 'package:HeartDoc/scr/screens/plot.dart';
 
-class Search extends StatefulWidget {
-  final String search;
-  // List<doctor> docs;
-  // final int i;
-  Search(this.search);
-  Firestore _firestore = Firestore.instance;
+class newSearch extends StatefulWidget {
+  final int i;
+  newSearch(this.i);
   @override
-  _SearchState createState() => _SearchState();
+  _newSearchState createState() => _newSearchState();
 }
 
-class _SearchState extends State<Search> {
-  @override
-
-  //   dynamic patient;
-  //   Future<dynamic> getPatientById(String id) =>
-  //     Firestore.instance.collection('patient').document('Ayush').get().then((doc) {
-  //       return patient.fromSnapshot(doc);
-  //     });
-  //   // Future<void> getPatient(id) async {
-  //   //   final DocumentReference document =
-  //   //       Firestore.instance.collection('patients').document('Ayush');
-  //   //   await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
-  //   //     setState(() {
-  //   //       patient = snapshot.data;
-  //   //     });
-  //   //   });
-  //   // }
-  //   void initState() {
-  //   super.initState();
-  //   getPatientById("Ayush");
-  // }
-
+class _newSearchState extends State<newSearch> {
   @override
   Widget build(BuildContext context) {
-    int i;
-    print("Reached");
-    print("Reached");
-    print("Reached");
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -64,21 +36,10 @@ class _SearchState extends State<Search> {
           print(snapshot.data.documents.length);
           print(snapshot.data.documents.length);
           int j = -1;
-          for (i = 0; i < snapshot.data.documents.length; i++) {
-            if (snapshot.data.documents[i]['email'] == widget.search) {
-              if (snapshot.data.documents[i]['Date-Status'] != "null")
-                j = snapshot.data.documents[i]['Date-Status'].length;
-              print("----------------");
-              print(j);
-              print(j);
-              print(j);
-              print(j);
-              break;
-              //List<String> items=List.from(userDocument['items']);
-              // var k = snapshot.data.documents[i]['Date'][0].length;
-
-            }
-          }
+          print(widget.i);
+          if (snapshot.data.documents[widget.i]['Date-Status'] != "null")
+            j = snapshot.data.documents[widget.i]['Date-Status'].length;
+          print("------------------------------------------");
           if (j <= 0) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,12 +79,12 @@ class _SearchState extends State<Search> {
                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         CustomText(
-                          text: "  Name      :   ",
+                          text: "Name     :   ",
                           color: Colors.red,
                           size: 20,
                         ),
                         CustomText(
-                          text: snapshot.data.documents[i]['name'],
+                          text: snapshot.data.documents[widget.i]['name'],
                           color: Colors.blue,
                           size: 20,
                         ),
@@ -133,12 +94,12 @@ class _SearchState extends State<Search> {
                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         CustomText(
-                          text: "  Disease  :   ",
+                          text: "Disease  :   ",
                           color: Colors.red,
                           size: 20,
                         ),
                         CustomText(
-                          text: snapshot.data.documents[i]['disease'],
+                          text: snapshot.data.documents[widget.i]['disease'],
                           color: Colors.blue,
                           size: 20,
                         ),
@@ -148,12 +109,12 @@ class _SearchState extends State<Search> {
                       //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         CustomText(
-                          text: "  Doctor    :   ",
+                          text: "Doctor    :   ",
                           color: Colors.red,
                           size: 20,
                         ),
                         CustomText(
-                          text: snapshot.data.documents[i]['doctor'],
+                          text: snapshot.data.documents[widget.i]['doctor'],
                           color: Colors.blue,
                           size: 20,
                         ),
@@ -189,23 +150,19 @@ class _SearchState extends State<Search> {
                           HoverButton(
                             onpressed: () {
                               globals.contents =
-                                  snapshot.data.documents[i]['Contents'][l];
+                                  snapshot.data.documents[widget.i]['Contents'][l];
                               doit();
-                              Timer(Duration(milliseconds: 400), () {
-                                print("Yeah, this line is printed after 3 seconds");
+                              Timer(Duration(seconds: 1), () {
+                                print(
+                                    "Yeah, this line is printed after 3 seconds");
                                 changeScreenReplacement(context, Plot());
-                                
                               });
-                              
-                              
-                                  
-                              
                             },
                             color: Colors.green,
                             hoverColor: Colors.red,
                             hoverTextColor: Colors.blue,
                             child: Text(
-                                snapshot.data.documents[i]['Date-Status'][l]),
+                                snapshot.data.documents[widget.i]['Date-Status'][l]),
                             // child: CustomText(
                             //   text: snapshot.data.documents[i]['Date-Status'][l],
                             //   color: Colors.green,
@@ -229,35 +186,3 @@ class _SearchState extends State<Search> {
     );
   }
 }
-
-//body: productProvider.productsSearched.length < 1? Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               Icon(Icons.search, color: grey, size: 30,),
-//             ],
-//           ),
-//           SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               CustomText(text: "No products Found", color: grey, weight: FontWeight.w300, size: 22,),
-//             ],
-//           )
-//         ],
-//       ) : ListView.builder(
-//           itemCount: productProvider.productsSearched.length,
-//           itemBuilder: (context, index){
-//             return GestureDetector(
-//                 onTap: ()async{
-//                   changeScreen(context, Details(product: productProvider.productsSearched[index]));
-//                 },
-//                 child: ProductWidget(product: productProvider.productsSearched[index]));
-//           }),
-//     );
-//   }
-// }

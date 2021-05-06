@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:HeartDoc/scr/models/patient.dart';
 import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
@@ -19,7 +21,7 @@ import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/screens/plot.dart';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 
 class Home extends StatefulWidget {
   @override
@@ -33,10 +35,6 @@ class _HomeState extends State<Home> {
     final app = Provider.of<AppProvider>(context);
     bool check = false;
     int l;
-    // // final categoryProvider = Provider.of<CategoryProvider>(context);
-    // // final restaurantProvider = Provider.of<RestaurantProvider>(context);
-    // // final productProvider = Provider.of<ProductProvider>(context);
-    // restaurantProvider.loadSingleRestaurant()
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: white),
@@ -46,18 +44,6 @@ class _HomeState extends State<Home> {
           text: "HeartDoc",
           color: white,
         ),
-        // actions: <Widget>[
-        //   Stack(
-        //     children: <Widget>[
-        //       IconButton(
-        //         icon: Icon(Icons.notification_important),
-        //         onPressed: () {
-        //           changeScreen(context, notification_screen());
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -98,8 +84,8 @@ class _HomeState extends State<Home> {
             ListTile(
               onTap: () async {
                 //await user.getOrders();
-                print(user.userModel?.name);
-                changeScreen(context, Search(user.userModel?.name));
+                print(user.userModel?.email);
+                changeScreen(context, Search(user.userModel?.email));
               },
               leading: Icon(Icons.bookmark_border),
               title: CustomText(text: "My records"),
@@ -123,170 +109,132 @@ class _HomeState extends State<Home> {
                 children: <Widget>[Loading()],
               ),
             )
-          : SafeArea(
-              // Divider(),
-              //       SizedBox(
-              //         height: 10,
-              //        ),
-              child: ListView(
-                children: <Widget>[
-                  Divider(),
-                  SizedBox(
-                    height: 150,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                      // child: Icon(Icons.input),
-                      onTap: () async {
-                        await getUpload();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            border: Border.all(color: grey),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CustomText(
-                                text: "Input File",
-                                color: white,
-                                size: 22,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+          : Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/bg.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: SafeArea(
+                child: ListView(
+                  children: <Widget>[
+                    Divider(),
+                    SizedBox(
+                      height: 220,
                     ),
-                  ),
-                  Divider(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                      // child: Icon(Icons.input),
-                      onTap: () async {
-                        if (globals.check == true) {
-                          await runmodel();
-                          changeScreenReplacement(context, Plot());
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Input a file first"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text('Ok'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                        //getprediction();
-                        // SizedBox(
-                        //   width: 80,
-                        //   height: 220,
-                        //   child: Column(children: <Widget>[
-                        //     Expanded(
-                        //       child: new charts.LineChart(
-                        //         getSeriesData(),
-                        //         animate: true,
-                        //         primaryMeasureAxis: new charts.NumericAxisSpec(
-                        //             tickProviderSpec:
-                        //                 new charts.BasicNumericTickProviderSpec(
-                        //           zeroBound: false,
-                        //         )),
-                        //       ),
-                        //     )
-                        //   ]),
-                        // );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            border: Border.all(color: grey),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CustomText(
-                                text: "Submit",
-                                color: white,
-                                size: 22,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Divider(),
-                  SizedBox(
-                    height: 10,
-                  ),
-//
-                  SizedBox(
-                    height: 5,
-                  ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: <Widget>[
-                  //       CustomText(
-                  //         text: "Graphical Presentations",
-                  //         size: 20,
-                  //         color: grey,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // // if(check==true)
-                  // // getprediction();
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () async {
+                          
+                          globals.check = await getUpload();
 
-                  // SizedBox(
-                  //   width: 80,
-                  //   height: 220,
-                  //   child: Column(children: <Widget>[
-                  //     Expanded(
-                  //       child: new charts.LineChart(
-                  //         getSeriesData(),
-                  //         animate: true,
-                  //         primaryMeasureAxis: new charts.NumericAxisSpec(
-                  //             tickProviderSpec:
-                  //                 new charts.BasicNumericTickProviderSpec(
-                  //           zeroBound: false,
-                  //         )),
-                  //       ),
-                  //     )
-                  //   ]),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: <Widget>[
-                  //       CustomText(
-                  //         text: "Result",
-                  //         size: 20,
-                  //         color: grey,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
+                          if (globals.check) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Input Successful!"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('Ok'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              border: Border.all(color: grey),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                CustomText(
+                                  text: "Input File",
+                                  color: white,
+                                  size: 22,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: GestureDetector(
+                        // child: Icon(Icons.input),
+                        onTap: () async {
+                          await runmodel();
+                          Timer(Duration(milliseconds: 300), () async {
+                            if (globals.check == true) {
+                              changeScreenReplacement(context, Plot());
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Input a file first"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text('Ok'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          });
+                        },
+
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              border: Border.all(color: grey),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                CustomText(
+                                  text: "Submit",
+                                  color: white,
+                                  size: 22,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(),
+                    SizedBox(
+                      height: 10,
+                    ),
+//
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
               ),
             ),
     );

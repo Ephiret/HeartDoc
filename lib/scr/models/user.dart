@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
 import 'package:HeartDoc/scr/screens/doctor.dart';
 import 'package:HeartDoc/scr/screens/home.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 
 class UserModel {
   static const ID = "id";
@@ -82,10 +82,6 @@ class DocModel {
   }
 }
 
-
-
-
-
 Future<bool> verifyDoc(
     String email, String password, BuildContext context) async {
   print(email);
@@ -123,3 +119,28 @@ updatepatient(String email, String result) async {
 //   StorageUploadTask uploadTask = ref.putData(asset);
 //   globals.url = await (await uploadTask.onComplete).ref.getDownloadURL();
 // }
+
+bool adddoctor(String email, String name, String pass) {
+  print(globals.docs.length);
+  globals.doctor d = new globals.doctor(name: name, email: email, pass: pass);
+  for (int i = 0; i < globals.docs.length; i++) {
+    if (globals.docs[i].email == email) {
+      return false;
+    }
+  }
+  globals.docs.add(d);
+  print(globals.docs.length);
+  return true;
+}
+
+bool removedoctor(String email) {
+  print(globals.docs.length);
+  for (int i = 0; i < globals.docs.length; i++) {
+    if (globals.docs[i].email == email) {
+      globals.docs.removeAt(i);
+      return true;
+    }
+  }
+  print(globals.docs.length);
+  return false;
+}

@@ -6,7 +6,7 @@ import 'package:HeartDoc/scr/screens/login.dart';
 import 'package:HeartDoc/scr/widgets/custom_text.dart';
 import 'package:HeartDoc/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 
 import 'home.dart';
 
@@ -154,13 +154,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               auth.dob.text = newDate;
                             },
                           )
-                          //  TextFormField(
-                          //   controller: auth.dob,
-                          //   decoration: InputDecoration(
-                          //       border: InputBorder.none,
-                          //       hintText: "Date of Birth",
-                          //       icon: Icon(Icons.event)),
-                          // ),
                           ),
                     ),
                   ),
@@ -259,12 +252,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
-                        print("BTN CLICKED!!!!");
+                       
 
                         if (!await auth.signUp()) {
                           _key.currentState.showSnackBar(

@@ -27,7 +27,7 @@ import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/screens/plot.dart';
-import 'package:HeartDoc/scr/screens/globals.dart' as globals;
+import 'package:HeartDoc/scr/providers/globals.dart' as globals;
 
 class Graphpoint {
   final int time;
@@ -43,12 +43,16 @@ List<String> val;
 File file;
 Future<bool> getUpload() async {
   globals.input = true;
+  globals.check = false;
+  bool check;
   FilePickerResult result = await FilePicker.platform.pickFiles();
   if (result != null) {
     file = File(result.files.single.path);
-    globals.check = true;
+    check = true;
+
     // await uploadFile(file.readAsBytesSync());
   } else {
+    check = false;
     // User canceled the picker
   }
   file.readAsString().then((contents) {
@@ -59,8 +63,8 @@ Future<bool> getUpload() async {
     //var onePointOne = double.parse(val[2]);
     //print(onePointOne);
   });
-  await Future.delayed(Duration(seconds: 1));
-  return true;
+  //await Future.delayed(Duration(seconds: 1));
+  return check;
 }
 
 void doit() async {
@@ -87,7 +91,7 @@ Future<void> runmodel() async {
     }
     var input1 = List(1 * 140).reshape([1, 140]);
     input1 = input[j];
-    print(input1);
+    //print(input1);
     var output1 = List(1 * 140).reshape([1, 140]);
     interpreter.run(input1, output1);
     output[j] = output1;
@@ -119,9 +123,9 @@ String getResult(int l) {
   double p = (error1 - threshhold);
   double q = (p / per) * 100;
   int u = q.toInt();
-  print(error1);
-  print(error1);
-  print(error1);
+  // print(error1);
+  // print(error1);
+  // print(error1);
   if (error1 > threshhold) {
     result = "Critical - " + u.toString() + " % ";
   } else
@@ -155,9 +159,9 @@ getSeriesData1(int j) {
   final data = [
     for (int i = 0; i < 140; i++) new Graphpoint(i, input[j][i]),
   ];
-  print("Done");
-  print("Done");
-  print("Done");
+  // print("Done");
+  // print("Done");
+  // print("Done");
 
   // updatepatient(email, result);
   List<charts.Series<Graphpoint, int>> series = [
