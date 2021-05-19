@@ -92,6 +92,7 @@ class UserProvider with ChangeNotifier {
           'disease': disease.text,
           'Date-Status': "null",
           'doctor': doctor.text,
+          'email': email.text,
         });
       });
       return true;

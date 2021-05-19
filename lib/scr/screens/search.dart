@@ -64,6 +64,7 @@ class _SearchState extends State<Search> {
           print(snapshot.data.documents.length);
           print(snapshot.data.documents.length);
           int j = -1;
+          print(widget.search);
           for (i = 0; i < snapshot.data.documents.length; i++) {
             if (snapshot.data.documents[i]['email'] == widget.search) {
               if (snapshot.data.documents[i]['Date-Status'] != "null")
@@ -192,14 +193,10 @@ class _SearchState extends State<Search> {
                                   snapshot.data.documents[i]['Contents'][l];
                               doit();
                               Timer(Duration(milliseconds: 400), () {
-                                print("Yeah, this line is printed after 3 seconds");
+                                print(
+                                    "Yeah, this line is printed after 3 seconds");
                                 changeScreenReplacement(context, Plot());
-                                
                               });
-                              
-                              
-                                  
-                              
                             },
                             color: Colors.green,
                             hoverColor: Colors.red,

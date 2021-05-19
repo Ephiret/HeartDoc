@@ -30,11 +30,6 @@ class _newSearchState extends State<newSearch> {
         stream: Firestore.instance.collection('patient').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Text("Loading");
-          print(snapshot.data.documents.length);
-          print(snapshot.data.documents.length);
-          print(snapshot.data.documents.length);
-          print(snapshot.data.documents.length);
-          print(snapshot.data.documents.length);
           int j = -1;
           print(widget.i);
           if (snapshot.data.documents[widget.i]['Date-Status'] != "null")
