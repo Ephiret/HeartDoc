@@ -83,11 +83,7 @@ class DocModel {
 }
 
 Future<bool> verifyDoc(
-    String email, String password, BuildContext context) async {
-  print(email);
-  print(email);
-  print(email);
-  print(email);
+  String email, String password, BuildContext context) async {
   for (int i = 0; i < globals.docs.length; i++) {
     if (globals.docs[i].email == email && globals.docs[i].pass == password) {
       print("true");
@@ -100,7 +96,6 @@ Future<bool> verifyDoc(
 Firestore _firestore = Firestore.instance;
 String date = DateTime.now().toString();
 updatepatient(String email, String result) async {
-  //print(userid);
   globals.contents = globals.contents + "  " + date;
   _firestore.collection('patient').document(email).updateData({
     "Date-Status": FieldValue.arrayUnion([date + "   :   " + result]),
@@ -110,15 +105,6 @@ updatepatient(String email, String result) async {
   globals.contents = "";
 }
 
-// uploadFile(List<int> asset) async {
-//   var rng = new Random();
-//   String name = "";
-//   for (int i = 0; i < 20; i++) name += rng.nextInt(100).toString();
-
-//   StorageReference ref = FirebaseStorage.instance.ref().child(name);
-//   StorageUploadTask uploadTask = ref.putData(asset);
-//   globals.url = await (await uploadTask.onComplete).ref.getDownloadURL();
-// }
 
 bool adddoctor(String email, String name, String pass) {
   print(globals.docs.length);

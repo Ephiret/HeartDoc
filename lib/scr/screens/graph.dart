@@ -1,29 +1,7 @@
-import 'dart:ffi';
-import 'package:HeartDoc/scr/providers/user.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:provider/provider.dart';
-// import 'package:matrix2d/matrix2d.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:HeartDoc/scr/models/patient.dart';
-import 'package:HeartDoc/scr/screens/notification.dart';
-import 'package:HeartDoc/scr/screens/update.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:HeartDoc/scr/helpers/screen_navigation.dart';
-import 'package:HeartDoc/scr/helpers/style.dart';
-import 'package:HeartDoc/scr/providers/app.dart';
-import 'package:HeartDoc/scr/providers/user.dart';
-import 'package:HeartDoc/scr/screens/login.dart';
-import 'package:HeartDoc/scr/widgets/custom_text.dart';
-import 'package:HeartDoc/scr/widgets/loading.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/widgets.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:HeartDoc/scr/screens/graph.dart';
 import 'package:HeartDoc/scr/models/user.dart';
 import 'package:HeartDoc/scr/screens/search.dart';
 import 'package:HeartDoc/scr/screens/plot.dart';
@@ -123,6 +101,7 @@ String getResult(int l) {
   double p = (error1 - threshhold);
   double q = (p / per) * 100;
   int u = q.toInt();
+  if (u > globals.max) globals.max = u;
   // print(error1);
   // print(error1);
   // print(error1);
@@ -134,23 +113,24 @@ String getResult(int l) {
 }
 
 String getResult1(String email) {
-  int l = globals.length;
-  //for (int l = 0; l < globals.length; l++) {
+  // int l = globals.length;
+  // //for (int l = 0; l < globals.length; l++) {
   String result;
-  double threshhold = 0.067 * l;
-  double max = 0.12 * l;
-  double per = max - threshhold;
-  double p = (globals.error - threshhold);
-  double q = (p / per) * 100;
-  int u = q.toInt();
+  // double threshhold = 0.067 * l;
+  // double max = 0.12 * l;
+  // double per = max - threshhold;
+  // double p = (globals.error - threshhold);
+  // double q = (p / per) * 100;
+  // int u = q.toInt();
   // print(error1);
   // print(error1);
   // print(error1);
-  if (globals.error > threshhold) {
-    result = "Critical - " + u.toString() + " % ";
+  if (globals.max > 0) {
+    result = "Critical - " + globals.max.toString() + " % ";
   } else
     result = "Normal";
   if (globals.input) updatepatient(email, result);
+  globals.max = -1;
   globals.input = false;
   return result;
 }

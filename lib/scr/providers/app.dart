@@ -1,5 +1,3 @@
-import 'package:HeartDoc/scr/models/patient.dart';
-import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

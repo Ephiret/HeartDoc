@@ -1,6 +1,4 @@
 import 'package:HeartDoc/scr/screens/mediate.dart';
-import 'package:HeartDoc/scr/screens/notification.dart';
-import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

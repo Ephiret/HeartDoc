@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:HeartDoc/scr/models/patient.dart';
-import 'package:HeartDoc/scr/screens/notification.dart';
 import 'package:HeartDoc/scr/screens/update.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -293,7 +292,7 @@ class _AdminState extends State<Admin> {
                                                               context) {
                                                             return AlertDialog(
                                                               title: Text(
-                                                                  "Doctor with same username exists"),
+                                                                  "Doctor with same email exists"),
                                                               actions: <Widget>[
                                                                 FlatButton(
                                                                   child: Text(
@@ -462,7 +461,7 @@ class _AdminState extends State<Admin> {
                                                               context) {
                                                             return AlertDialog(
                                                               title: Text(
-                                                                  "Doctor removed"),
+                                                                  "Doctor removed from portal"),
                                                               actions: <Widget>[
                                                                 FlatButton(
                                                                   child: Text(
@@ -485,7 +484,7 @@ class _AdminState extends State<Admin> {
                                                               context) {
                                                             return AlertDialog(
                                                               title: Text(
-                                                                  "No Doctor with this username exists"),
+                                                                  "No Doctor with this email exists"),
                                                               actions: <Widget>[
                                                                 FlatButton(
                                                                   child: Text(

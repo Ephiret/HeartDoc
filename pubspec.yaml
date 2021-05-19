@@ -74,7 +74,6 @@ flutter:
   assets:
     - images/download.jpg
     - images/logo.jpg
-    - images/logo.png
     - images/bg.jpg
     - assets/linear.tflite
   
