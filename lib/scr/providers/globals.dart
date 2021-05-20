@@ -6,6 +6,7 @@ double error = 0;
 int max = -1;
 bool check = false;
 String url = "";
+String setValue = "Choose a new doctor";
 String contents = "";
 bool input = false;
 

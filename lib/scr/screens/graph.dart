@@ -20,14 +20,14 @@ var input = List(1 * 140).reshape([1, 140]);
 List<String> val;
 File file;
 Future<bool> getUpload() async {
-  globals.input = true;
-  globals.check = false;
   bool check;
-  FilePickerResult result = await FilePicker.platform.pickFiles();
+  FilePickerResult result = await FilePicker.platform
+      .pickFiles(type: FileType.custom, allowedExtensions: ['txt']);
   if (result != null) {
     file = File(result.files.single.path);
     check = true;
-
+    globals.input = true;
+    globals.check = false;
     // await uploadFile(file.readAsBytesSync());
   } else {
     check = false;
@@ -41,6 +41,11 @@ Future<bool> getUpload() async {
     //var onePointOne = double.parse(val[2]);
     //print(onePointOne);
   });
+  val = globals.contents.split("  ");
+  int len = val.length;
+  double l1 = len / 140;
+  int l = l1.toInt();
+  if (l == 0) globals.check = false;
   //await Future.delayed(Duration(seconds: 1));
   return check;
 }

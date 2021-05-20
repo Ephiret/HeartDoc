@@ -87,6 +87,8 @@ class _HomeState extends State<Home> {
               onTap: () {
                 user.signOut();
                 changeScreenReplacement(context, LoginScreen());
+                Navigator.popUntil(
+                    context, ModalRoute.withName(Navigator.defaultRouteName));
               },
               leading: Icon(Icons.exit_to_app),
               title: CustomText(text: "Log out"),
@@ -176,12 +178,12 @@ class _HomeState extends State<Home> {
                             changeScreenReplacement(context, Plot());
                             globals.check = false;
                           } else {
-                            print("Dddddd");
+                            //print("Dddddd");
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Input a file first"),
+                                  title: Text("Input a valid file first"),
                                   actions: <Widget>[
                                     FlatButton(
                                       child: Text('Ok'),

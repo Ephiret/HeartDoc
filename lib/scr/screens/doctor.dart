@@ -75,6 +75,8 @@ class _DoctorState extends State<Doctor> {
             ListTile(
               onTap: () {
                 changeScreenReplacement(context, LoginScreen());
+                Navigator.popUntil(
+                    context, ModalRoute.withName(Navigator.defaultRouteName));
               },
               leading: Icon(Icons.exit_to_app),
               title: CustomText(text: "Log out"),

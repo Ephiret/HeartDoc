@@ -112,112 +112,127 @@ class _SearchState extends State<Search> {
             );
           } else {
             return ListView(
-              children: <Widget>[
+              children: [
                 Column(
-                  children: <Widget>[
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CustomText(
-                          text: "  Name      :   ",
-                          color: Colors.red,
-                          size: 20,
-                        ),
-                        CustomText(
-                          text: snapshot.data.documents[i]['name'],
-                          color: Colors.blue,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CustomText(
-                          text: "  Disease  :   ",
-                          color: Colors.red,
-                          size: 20,
-                        ),
-                        CustomText(
-                          text: snapshot.data.documents[i]['disease'],
-                          color: Colors.blue,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CustomText(
-                          text: "  Doctor    :   ",
-                          color: Colors.red,
-                          size: 20,
-                        ),
-                        CustomText(
-                          text: snapshot.data.documents[i]['doctor'],
-                          color: Colors.blue,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    // Text("Disease : " + snapshot.data.documents[i]['disease']),
-                    // Text("Doctor : " + snapshot.data.documents[i]['doctor']),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        CustomText(
-                          text: "      Date-Time                              ",
-                          color: Colors.black,
-                          size: 17,
-                        ),
-                        CustomText(
-                          text: "Status",
-                          color: Colors.black,
-                          size: 17,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    for (int l = 0; l < j; l++)
+                    children: <Widget>[
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                         children: <Widget>[
-                          HoverButton(
-                            onpressed: () {
-                              globals.contents =
-                                  snapshot.data.documents[i]['Contents'][l];
-                              doit();
-                              Timer(Duration(milliseconds: 400), () {
-                                print(
-                                    "Yeah, this line is printed after 3 seconds");
-                                changeScreenReplacement(context, Plot());
-                              });
-                            },
-                            color: Colors.green,
-                            hoverColor: Colors.red,
-                            hoverTextColor: Colors.blue,
-                            child: Text(
-                                snapshot.data.documents[i]['Date-Status'][l]),
-                            // child: CustomText(
-                            //   text: snapshot.data.documents[i]['Date-Status'][l],
-                            //   color: Colors.green,
-                            //   size: 18,
-                            // ),
-                          )
+                          CustomText(
+                            text: "  Name      :   ",
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                          CustomText(
+                            text: snapshot.data.documents[i]['name'],
+                            color: Colors.blue,
+                            size: 20,
+                          ),
                         ],
                       ),
-                    // Text(snapshot.data.documents[i]['Date-Status'][l])
-                    // "   :   " +
-                    // snapshot.data.documents[i]['Status'][l]),
-                    // for (int l = 0; l < j; l++)
-                    //Text(),
-                  ],
-                ),
+
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                        children: <Widget>[
+                          CustomText(
+                            text: "  Disease  :   ",
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                          CustomText(
+                            text: snapshot.data.documents[i]['disease'],
+                            color: Colors.blue,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                        children: <Widget>[
+                          CustomText(
+                            text: "  Doctor    :   ",
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                          CustomText(
+                            text: snapshot.data.documents[i]['doctor'],
+                            color: Colors.blue,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 15,
+                      ),
+
+                      // Text("Disease : " + snapshot.data.documents[i]['disease']),
+
+                      // Text("Doctor : " + snapshot.data.documents[i]['doctor']),
+
+                     Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                        children: <Widget>[
+                          CustomText(
+                            text:
+                                "      Date-Time                              ",
+                            color: Colors.black,
+                            size: 17,
+                          ),
+                          CustomText(
+                            text: "Status",
+                            color: Colors.black,
+                            size: 17,
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      for (int l = 0; l < j; l++)
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                          children: <Widget>[
+                             FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: HoverButton(
+                              onpressed: () {
+                                globals.contents =
+                                    snapshot.data.documents[i]['Contents'][l];
+
+                                doit();
+
+                                Timer(Duration(milliseconds: 400), () {
+                                  print(
+                                      "Yeah, this line is printed after 3 seconds");
+
+                                  changeScreenReplacement(context, Plot());
+                                });
+                              },
+
+                              color: Colors.green,
+
+                              hoverColor: Colors.red,
+
+                              hoverTextColor: Colors.blue,
+
+                              child: Text(
+                                  snapshot.data.documents[i]['Date-Status'][l]),
+
+                            )
+                             )
+                          ],
+                        ),
+                    ],
+                  ),
               ],
             );
           }
@@ -226,35 +241,3 @@ class _SearchState extends State<Search> {
     );
   }
 }
-
-//body: productProvider.productsSearched.length < 1? Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               Icon(Icons.search, color: grey, size: 30,),
-//             ],
-//           ),
-//           SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               CustomText(text: "No products Found", color: grey, weight: FontWeight.w300, size: 22,),
-//             ],
-//           )
-//         ],
-//       ) : ListView.builder(
-//           itemCount: productProvider.productsSearched.length,
-//           itemBuilder: (context, index){
-//             return GestureDetector(
-//                 onTap: ()async{
-//                   changeScreen(context, Details(product: productProvider.productsSearched[index]));
-//                 },
-//                 child: ProductWidget(product: productProvider.productsSearched[index]));
-//           }),
-//     );
-//   }
-// }
